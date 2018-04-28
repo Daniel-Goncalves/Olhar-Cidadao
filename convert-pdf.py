@@ -13,23 +13,49 @@ def check_path(prompt):
 
     while path.exists(abs_path) != True:
 
-        print "\nThe specified path does not exist.\n"
+        print("\nThe specified path does not exist.\n")
 
         abs_path = raw_input(prompt)
 
     return abs_path   
 
-   
+ 
+directory="./"  
+content = ""
+name = "texto"
 
-print "\n"
+t=os.path.join(directory,'0document.pdf')
+'''
+print t
+
+# Load PDF into pyPDF
+path = t
+
+pdf = pyPdf.PdfFileReader(file(path, "rb"))
+
+# Iterate pages
+
+for i in range(0, pdf.getNumPages()):
+
+    # Extract text from page and add to content
+    print("I:",i)
+    print(pdf.getPage(i).extractText())
+    content += pdf.getPage(i).extractText() + "\n"
+
+print(content)
+print(strftime("%H:%M:%S"), " pdf  -> txt ") 
+
+f=open(name,'w')
+
+f.write(content.encode("UTF-8"))
+
+f.close
+'''
 
 
 
+lista=[]
 
-
-list=[]
-
-directory="tt"
 
 for root,dirs,files in os.walk(directory):
 
@@ -38,28 +64,24 @@ for root,dirs,files in os.walk(directory):
         if filename.endswith('.pdf'):
 
             t=os.path.join(directory,filename)
+            lista.append(t)
 
-            list.append(t)
 
 
-m=len(list)
 
 i=0
+print lista
 
-while i<=len(list):
+while i<=len(lista):
 
-    path=list[i]
+    path=lista[i]
+    print path
 
-    head,tail=os.path.split(path)
-
-    var="\\"
-
-   
+    head,tail=os.path.split(path)   
 
     tail=tail.replace(".pdf",".txt")
 
-    name=head+var+tail
-
+    name=head+"/"+tail
 
     content = ""
 
@@ -75,7 +97,9 @@ while i<=len(list):
 
         content += pdf.getPage(i).extractText() + "\n"
 
-    print strftime("%H:%M:%S"), " pdf  -> txt "
+    print(strftime("%H:%M:%S"), " pdf  -> txt ") 
+
+    print content
 
     f=open(name,'w')
 

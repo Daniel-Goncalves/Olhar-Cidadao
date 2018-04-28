@@ -1,0 +1,7 @@
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+INFO:tornado.access:200 POST /charge_unb_biddings (::1) 3427.77ms
+DEBUG:root:Started application on port 9000
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+INFO:tornado.access:200 POST /charge_unb_biddings (::1) 2897.98ms
