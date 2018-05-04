@@ -31,7 +31,6 @@ def __configure_logging():
     numeric_level = getattr(logging, log_level.upper(), None)
     logging.basicConfig(level=numeric_level, filename=ConfigHandler.log_file)
 
-
 if __name__ == '__main__':
 
     # Le a porta a ser usada a partir da configuracao lida
