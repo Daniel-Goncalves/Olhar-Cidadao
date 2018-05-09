@@ -9,7 +9,7 @@ import requests
 import re
 
 from handlers.ConfigHandler import ConfigHandler
-from handlers.PDFHandler import DFHandler
+from handlers.PDFHandler import PDFHandler
 
 class ChargeUnbBiddings(tornado.web.RequestHandler):
 
@@ -162,7 +162,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 
 			#if i == 0:
 			PDFHandler.download_pdf(pdf_url,self.licit_df.loc[index]['objeto'])
-
+			
 
 
 		#self.update_unb_biddings()

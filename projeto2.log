@@ -25,3 +25,33 @@ DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/contra
 INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
 DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/contratos/Contrato%201045-2016%20-%20BELFORT%20GERENCIAMENTO%20DE%20RESDUOS%20.pdf HTTP/1.1" 200 325146
 INFO:tornado.access:200 POST /charge_unb_biddings (::1) 15046.03ms
+DEBUG:root:Started application on port 9000
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20647-2016%20refletores%20LED.pdf HTTP/1.1" 200 139497
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): www.prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relacao_de_itens_PE505_2017.pdf HTTP/1.1" 200 229932
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20640-2016.pdf HTTP/1.1" 200 152075
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20632-2016%20Vouchers.pdf HTTP/1.1" 200 138815
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Ata%20PE%20638-2015%20Carpintaria.pdf HTTP/1.1" 200 1536610
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20642-2016%20Forro.pdf HTTP/1.1" 200 250991
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20638-2016%20Piso%20Ttil.pdf HTTP/1.1" 200 145955
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20644-2016%20Vidros.pdf HTTP/1.1" 200 147759
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20637-2016%20Placas%20de%20inaugurao.pdf HTTP/1.1" 200 139272
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/Atas/Relao%20de%20itens%20Ata%20PE%20641-2016%20Divisrias.pdf HTTP/1.1" 200 152933
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/contratos/Contrato%20801-2016%20-%20SANIPLAN%20ENGENHARIA%20E%20SERVIOS%20AMBIENTAIS.pdf HTTP/1.1" 200 286656
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): www.prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/contratos/Contrato_Caixas_d_agua.pdf HTTP/1.1" 200 248967
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): prefeitura.unb.br
+DEBUG:requests.packages.urllib3.connectionpool:"GET /images/phocadownload/contratos/Contrato%201045-2016%20-%20BELFORT%20GERENCIAMENTO%20DE%20RESDUOS%20.pdf HTTP/1.1" 200 325146
+INFO:tornado.access:200 POST /charge_unb_biddings (::1) 7820.89ms
