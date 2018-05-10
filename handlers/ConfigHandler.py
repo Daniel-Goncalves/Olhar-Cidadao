@@ -19,5 +19,6 @@ class ConfigHandler:
 	log_file = config["logging"]["filename"]
 
 	unb_biddings_url = config['biddings']['unb_biddings_url']
+	ocrwebserviceURL = config['biddings']['ocrwebserviceURL']
 
 	config_file_stream.close()
