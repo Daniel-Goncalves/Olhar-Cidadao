@@ -89,6 +89,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 				self.ata = row_info[0]
 				self.termo_aditivo = None
 			elif self.state == "CONTRATOS EXPIRADOS":
+				print("COntratos EXPIRADOS")
 				self.ata = None
 				self.termo_aditivo = row_info[0]
 
@@ -110,6 +111,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 	@gen.coroutine
 	def post(self):
 
+		
 		self.unb_biddings_url = ConfigHandler.unb_biddings_url
 		self.html_table = yield self.get_html_table()
 		self.licit_df = yield self.create_licit_df()
@@ -135,9 +137,10 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		for index_row in range(3,len(self.table)):
 			row_info = self.table.iloc[index_row].tolist()
 			row_info.pop(0)                             # First element is the index, so remove it
-			if(not self.treat_table_row(row_info,index_row)):    # When it returns false, it's next state
+			same_state = yield self.treat_table_row(row_info,index_row)
+			if(not same_state):    # When it returns false, it's next state
 				break
-			
+		
 		empresas = []
 		self.new_object = True
 		self.state = "CONTRATOS EXPIRADOS"
@@ -145,7 +148,8 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 			row_info = self.table.iloc[index_row].tolist()
 
 			row_info.pop(0)
-			if(not self.treat_table_row(row_info,index_row)):
+			same_state = yield self.treat_table_row(row_info,index_row)
+			if(not same_state):
 				break
 
 		# Assign pdf urls
@@ -157,15 +161,13 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 				identifier = getattr(row, "contrato")
 
 			pdf_url = yield self.find_pdf_url(identifier)
-			#print(pdf_url,"\n")
 			self.licit_df.loc[index]['pdf_url'] = pdf_url
 
-			#if i == 0:
-			PDFHandler.download_pdf(pdf_url,self.licit_df.loc[index]['objeto'])
-			
+		self.update_unb_biddings()
+		
+		yield PDFHandler.download_all_pdfs(self)
+		PDFHandler.prepare_pdfs_and_send_requests(self)
 
-
-		#self.update_unb_biddings()
 		
 		response = {
 			'status': 'ok',
