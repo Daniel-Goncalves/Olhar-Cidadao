@@ -7,7 +7,7 @@ database:
     min_pool_size: 5
 logging:
   level: DEBUG
-  filename: projeto2.log
+  filename: logs/projeto2.log
 biddings:
   unb_biddings_url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml
   ocrwebserviceURL: http://www.ocrwebservice.com/restservices/processDocument?gettext=true&language=brazilian&outputformat=xlsx&pagerange=1

@@ -109,9 +109,21 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		return True
 
 	@gen.coroutine
+	def get(self):
+		response = {
+			'status': 'ok',
+			'msg': 'Hello'
+		}
+		self.set_status(200)  # http 200 ok
+		self.write(response)
+		self.finish()
+		return
+
+			
+
+	@gen.coroutine
 	def post(self):
 
-		
 		self.unb_biddings_url = ConfigHandler.unb_biddings_url
 		self.html_table = yield self.get_html_table()
 		self.licit_df = yield self.create_licit_df()
