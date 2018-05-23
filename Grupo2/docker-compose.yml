@@ -1,0 +1,10 @@
+web:
+ container_name: script
+ build: .
+ command: python3 diretorios.py runserver 0.0.0.0:8000
+ volumes:
+  - ./Excel:/Excel
+ ports: 
+  - 8000:8000
+ tty: true
+ stdin_open: true
