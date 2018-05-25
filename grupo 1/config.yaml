@@ -11,3 +11,13 @@ logging:
 biddings:
   unb_biddings_url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml
   ocrwebserviceURL: http://www.ocrwebservice.com/restservices/processDocument?gettext=true&language=brazilian&outputformat=xlsx&pagerange=1
+  # Arrays to match columns when treating PDFs
+  item_names_array: [item]
+  qtd_names_array: [qtd]
+  und_names_array: [und,unidade]
+  especificacoes_names_array: [especificacoes,especificacões,especificações,descrição,descricao]
+  valor_unit_names_array: [valor unit.,valor unit,unitário,valor,unit.,"valor\nunit."]
+  fornecedor_names_array: ["fornecedor"]
+
+treatment:
+  maximum_unit_value: 5000

@@ -10,6 +10,8 @@ import time
 
 from handlers.ConfigHandler import ConfigHandler
 from handlers.ChargeUnbBiddingsHandler import ChargeUnbBiddings
+from handlers.ValuesHandler import ValuesHandler
+from handlers.CompaniesHandler import CompaniesHandler
 
 def create_web_server():
 
@@ -18,7 +20,9 @@ def create_web_server():
 
     # Roteamento para as diferentes URIs
     handlers = [
-        (r"/charge_unb_biddings", ChargeUnbBiddings)
+        (r"/charge_unb_biddings", ChargeUnbBiddings),
+        (r"/get_values_differences", ValuesHandler),
+        (r"/get_winner_companies", CompaniesHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})
     ]

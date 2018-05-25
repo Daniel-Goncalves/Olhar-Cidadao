@@ -21,4 +21,13 @@ class ConfigHandler:
 	unb_biddings_url = config['biddings']['unb_biddings_url']
 	ocrwebserviceURL = config['biddings']['ocrwebserviceURL']
 
+	item_names_array = config['biddings']['item_names_array']
+	qtd_names_array = config['biddings']['qtd_names_array']
+	und_names_array = config['biddings']['und_names_array']
+	especificacoes_names_array = config['biddings']['especificacoes_names_array']
+	valor_unit_names_array = config['biddings']['valor_unit_names_array']
+	fornecedor_names_array = config['biddings']['fornecedor_names_array']
+
+	maximum_unit_value = config['treatment']['maximum_unit_value']
+
 	config_file_stream.close()

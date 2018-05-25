@@ -94,7 +94,7 @@ class PDFHandler(tornado.web.RequestHandler):
 			pass
 
 	@gen.coroutine
-	def split_one_pdf(filePath):
+	def split_one_pdf(filePath,filename):
 		
 		filename = filePath.split("/")[-1:][0][:-4]
 
@@ -140,21 +140,68 @@ class PDFHandler(tornado.web.RequestHandler):
 		body = buffer.getvalue()
 		return body
 
+	@gen.coroutine
+	def find_table_columns_names(row,column):
+
+		if column == "item":
+			columns_names_array = ConfigHandler.item_names_array
+		if column == "quantidade":
+			columns_names_array = ConfigHandler.qtd_names_array
+		if column == "unidade":
+			columns_names_array = ConfigHandler.und_names_array
+		if column == "especificacoes":
+			columns_names_array = ConfigHandler.especificacoes_names_array
+		if column == "valor_unitario":
+			columns_names_array = ConfigHandler.valor_unit_names_array
+		if column == "fornecedor":	
+			columns_names_array = ConfigHandler.fornecedor_names_array
+
+
+
+		position = 0
+		for field in row:
+			if(field.lower() in columns_names_array):
+				return position
+			position +=1
+
 
 	@gen.coroutine
-	def extract_data_from_xlsx(filename,first_page):
+	def extract_data_from_xlsx(table,filename,first_page,indexes_list):
 
-		dfs = pd.read_excel(filename, sheet_name="Sheet1")
+		dfs = pd.read_excel(table, sheet_name="Sheet1")
 
 		# Delete rows with at least 2 null values
 		dfs = dfs.dropna(thresh=2)
 
 		objects = []
+
 		for i,(index, row) in enumerate(dfs.iterrows()):  # go through all rows
 			if not (first_page and i == 0):		# If not columns names
-				json = {"item":row[0],"quantidade":row[1],"unidade":row[2],"especificacoes":row[3],"valor_unitario":row[4],"fornecedor":row[5]}
+
+				json = {"item":row[indexes_list[0]],"quantidade":row[indexes_list[1]],"unidade":row[indexes_list[2]],"especificacoes":row[indexes_list[3]],"valor_unitario":row[indexes_list[4]],"fornecedor":row[indexes_list[5]],"filename":filename}
 				objects.append(json)
 		return objects
+
+	@gen.coroutine
+	def get_columns_indexes(table):
+		dfs = pd.read_excel(table, sheet_name="Sheet1")
+
+		# Delete rows with at least 2 null values
+		dfs = dfs.dropna(thresh=2)
+
+		for i,(index, row) in enumerate(dfs.iterrows()):  # go through all rows
+			## Get from the first line then return
+			item_index = yield PDFHandler.find_table_columns_names(row,"item")
+			unidade_index = yield PDFHandler.find_table_columns_names(row,"unidade")
+			quantidade_index = yield PDFHandler.find_table_columns_names(row,"quantidade")
+			especificacoes_index = yield PDFHandler.find_table_columns_names(row,"especificacoes")
+			valor_unitario_index = yield PDFHandler.find_table_columns_names(row,"valor_unitario")
+			fornecedor_index = yield PDFHandler.find_table_columns_names(row,"fornecedor")
+
+			indexes_list = [item_index,quantidade_index,unidade_index,especificacoes_index,valor_unitario_index,fornecedor_index]
+
+			#print("Index List:",indexes_list)
+			return indexes_list
 
 	@gen.coroutine
 	def push_list_elements_in_another(list1,list2):
@@ -169,17 +216,20 @@ class PDFHandler(tornado.web.RequestHandler):
 				os.remove(os.path.join(dir_name, item))
 
 	@gen.coroutine
-	def extract_objects_from_xlsx_files_and_insert_in_db(self):
+	def extract_objects_from_xlsx_files_and_insert_in_db(self,original_filename,delete_xlsx):
 
 			xlsx_files_names = yield PDFHandler.get_all_xls_files()
+
+			first_page = 'pdf/' + original_filename + "0.xlsx"
+			indexes_list = yield PDFHandler.get_columns_indexes(first_page)
 			all_table_objects = []
 			new_objects = []
 			for i,(table) in enumerate(xlsx_files_names):
 				
-				if i is 0:	# It's the first page of the original PDF, só the first line will correspond to the columns names
-					new_objects = yield PDFHandler.extract_data_from_xlsx(table,True)
+				if i is 0 and first_page != original_filename:	# It's the first page of the original PDF, só the first line will correspond to the columns names
+					new_objects = yield PDFHandler.extract_data_from_xlsx(table,original_filename,True, indexes_list)
 				else:
-					new_objects = yield PDFHandler.extract_data_from_xlsx(table,False)
+					new_objects = yield PDFHandler.extract_data_from_xlsx(table,original_filename,False , indexes_list)
 
 				yield PDFHandler.push_list_elements_in_another(new_objects,all_table_objects)
 
@@ -187,8 +237,17 @@ class PDFHandler(tornado.web.RequestHandler):
 			materials_collection = self.application.mongodb.materials
 			logging.debug("Inserting materials in DB: {0}".format(all_table_objects))
 
-			materials_collection.insert(all_table_objects)
-			yield PDFHandler.delete_all_extensions_files("./pdf","xlsx")
+
+			#materials_collection.insert(all_table_objects)
+			for record in all_table_objects:
+				self.licit_collection.update({'especificacoes':record['especificacoes'],'filename':record['filename'],'item':record['item']},record,upsert=True)
+			
+			# Command to delete duplicated materials
+			# db.materials.find({},{especificacoes:1,filename:1,item:1}).sort({_id:1}).forEach(function(doc){db.materials.remove({_id:{$gt:doc._id},especificacoes:doc.especificacoes,filename:doc.filename,item:doc.item})})
+
+
+			if delete_xlsx:
+				yield PDFHandler.delete_all_extensions_files("./pdf","xlsx")
 		
 	@gen.coroutine
 	def get_licenses_array(self):
@@ -214,12 +273,14 @@ class PDFHandler(tornado.web.RequestHandler):
 
 		# Treate each one PDF
 		logging.debug("Treating each PDF...")
+
 		for i in range(0,len(pdfs_to_be_split_list)):
 			treated_pdf_file_path = pdfs_to_be_split_list[i]
+			filename = treated_pdf_file_path.split("/")[-1:][0][:-4]
 
 			# Separate the n pages of a pdf in n pdfs
 			# That's because the ocr requisition can only treat one pdf page at a time
-			splited_pdf_files_names = yield PDFHandler.split_one_pdf(treated_pdf_file_path)
+			splited_pdf_files_names = yield PDFHandler.split_one_pdf(treated_pdf_file_path,filename)
 
 			# Make one requisition for each pdf then treat the xlsx outputs in order to get the table
 			
@@ -246,8 +307,8 @@ class PDFHandler(tornado.web.RequestHandler):
 							key_switched = True
 							if position_in_license_array == len(licenses_array) - 1:
 								logging.debug("No more keys")
-								#PDFHandler.delete_all_extensions_files("./pdf","pdf")
-								#PDFHandler.delete_all_extensions_files("./pdf","xlsx")
+								PDFHandler.delete_all_extensions_files("./pdf","pdf")
+								PDFHandler.delete_all_extensions_files("./pdf","xlsx")
 								return
 							else:
 								position_in_license_array = position_in_license_array + 1
@@ -263,7 +324,9 @@ class PDFHandler(tornado.web.RequestHandler):
 						with open(filePath[:-4] + '.xlsx', 'wb') as f:
 							f.write(xlsx.content)
 
-			yield PDFHandler.extract_objects_from_xlsx_files_and_insert_in_db(self)
+			
+
+			yield PDFHandler.extract_objects_from_xlsx_files_and_insert_in_db(self,filename,True)
 
 			#Delete treated PDFs
 			for pdf in splited_pdf_files_names:

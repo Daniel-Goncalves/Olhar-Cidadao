@@ -1,2 +1,0 @@
-DEBUG:root:Started application on port 9000
-INFO:tornado.access:200 GET /charge_unb_biddings (::1) 1.55ms

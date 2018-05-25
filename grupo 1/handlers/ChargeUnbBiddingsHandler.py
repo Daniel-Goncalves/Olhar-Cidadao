@@ -89,7 +89,6 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 				self.ata = row_info[0]
 				self.termo_aditivo = None
 			elif self.state == "CONTRATOS EXPIRADOS":
-				print("COntratos EXPIRADOS")
 				self.ata = None
 				self.termo_aditivo = row_info[0]
 
@@ -106,23 +105,10 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 			self.licit_df_index = self.licit_df_index + 1
 			self.new_object = True
 			self.empresas = []
-		return True
+		return True			
 
 	@gen.coroutine
 	def get(self):
-		response = {
-			'status': 'ok',
-			'msg': 'Hello'
-		}
-		self.set_status(200)  # http 200 ok
-		self.write(response)
-		self.finish()
-		return
-
-			
-
-	@gen.coroutine
-	def post(self):
 
 		self.unb_biddings_url = ConfigHandler.unb_biddings_url
 		self.html_table = yield self.get_html_table()
@@ -132,7 +118,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		self.table = pd.read_html(self.unb_biddings_url)[0]
 		self.inicio_proxima_classificacao = 0 
 
-		post_data = tornado.escape.json_decode(self.request.body)
+		#post_data = tornado.escape.json_decode(self.request.body)	# Not post anymore
 
 		#user = post_data["account"]    
 
@@ -177,13 +163,16 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 
 		self.update_unb_biddings()
 		
+
+		yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+		yield PDFHandler.delete_all_extensions_files("./pdf","xlsx")
 		yield PDFHandler.download_all_pdfs(self)
 		PDFHandler.prepare_pdfs_and_send_requests(self)
 
-		
+
 		response = {
 			'status': 'ok',
-			'msg': 'unb biddings updated in database'
+			'msg': 'unb biddings being updated in database'
 		}
 		self.set_status(200)  # http 200 ok
 		self.write(response)
