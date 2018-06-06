@@ -240,7 +240,7 @@ class PDFHandler(tornado.web.RequestHandler):
 
 			#materials_collection.insert(all_table_objects)
 			for record in all_table_objects:
-				self.licit_collection.update({'especificacoes':record['especificacoes'],'filename':record['filename'],'item':record['item']},record,upsert=True)
+				materials_collection.update({'especificacoes':record['especificacoes'],'filename':record['filename'],'item':record['item']},record,upsert=True)
 			
 			# Command to delete duplicated materials
 			# db.materials.find({},{especificacoes:1,filename:1,item:1}).sort({_id:1}).forEach(function(doc){db.materials.remove({_id:{$gt:doc._id},especificacoes:doc.especificacoes,filename:doc.filename,item:doc.item})})
@@ -303,7 +303,7 @@ class PDFHandler(tornado.web.RequestHandler):
 
 						logging.debug("Error while making ocr request: {0}".format(response_error))
 						if str(response_error) == "Daily page limit exceeded":
-							logging.debug("Page Limit exceeded. Switching key")
+							logging.debug("Page Limit exceeded for " + username + ". Switching key")
 							key_switched = True
 							if position_in_license_array == len(licenses_array) - 1:
 								logging.debug("No more keys")

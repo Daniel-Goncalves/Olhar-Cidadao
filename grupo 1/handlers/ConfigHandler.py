@@ -29,5 +29,10 @@ class ConfigHandler:
 	fornecedor_names_array = config['biddings']['fornecedor_names_array']
 
 	maximum_unit_value = config['treatment']['maximum_unit_value']
+	maximum_number_of_wins_same_bidding = config['treatment']['maximum_number_of_wins_same_bidding']
+	maximum_total_value_allowed = config['treatment']['maximum_total_value_allowed']
+	maximum_number_of_wins_for_a_company_in_all_biddings = config['treatment']['maximum_number_of_wins_for_a_company_in_all_biddings']
+	maximum_value_allowed_for_two_wins = config['treatment']['maximum_value_allowed_for_two_wins']
+	maximum_value_allowed_for_three_wins = config['treatment']['maximum_value_allowed_for_three_wins']
 
 	config_file_stream.close()

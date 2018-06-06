@@ -67,8 +67,8 @@ class ValuesHandler(tornado.web.RequestHandler):
 				try:
 					qtd = int(qtd)
 
-					#if objeto == "FORNECIMENTO DE REFLETORES LED	":
-					#	qtd = qtd * 1000
+					if objeto == "SERVIÇO DE INTALAÇÃO DE FORROS":
+						qtd = qtd * 1000
 
 				except ValueError:
 					qtd = 1
