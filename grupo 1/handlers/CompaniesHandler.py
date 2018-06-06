@@ -15,18 +15,25 @@ class CompaniesHandler(tornado.web.RequestHandler):
 	@gen.coroutine
 	def get(self):
 
-		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
-		#winner_companies = yield CompaniesHandler.get_winner_companies(cursor)
-		#winner_companies = yield CompaniesHandler.get_company_winning_in_all_biddings(cursor)
-		#winner_companies = yield CompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(cursor)
-		#winner_companies = yield CompaniesHandler.get_company_winning_in_same_licit(cursor)
-		#winner_companies = yield CompaniesHandler.get_company_winning_in_same_licit_above_value_threshold(cursor)
-		#winner_companies = yield CompaniesHandler.get_companies_vigent_ranges(cursor)
-		#winner_companies = yield CompaniesHandler.company_winning_more_than_one_bidding_in_the_same_period(cursor)
-		winner_companies = yield CompaniesHandler.get_company_winning_considering_company_size(cursor)
+		winner_companies = yield CompaniesHandler.get_winner_companies(self)
+		companies_that_won_in_multiple_biddings = yield CompaniesHandler.get_company_winning_in_all_biddings(self)
+		companies_that_won_in_multiple_biddings_with_high_value = yield CompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self)
+		companies_that_won_in_the_same_bidding = yield CompaniesHandler.get_company_winning_in_same_bidding(self)
+		companies_that_won_in_the_same_bidding_with_high_value = yield CompaniesHandler.get_company_winning_in_same_bidding_above_value_threshold(self)
+		companies_vigent_ranges = yield CompaniesHandler.get_companies_vigent_ranges(self)
+		companies_that_won_in_same_period = yield CompaniesHandler.company_winning_more_than_one_bidding_in_the_same_period(self)
+		companies_that_won_multiple_times_considering_total_values = yield CompaniesHandler.get_company_winning_considering_company_size(self)
+
+		CompaniesHandler.save_suspectious(self,companies_that_won_in_multiple_biddings,companies_that_won_in_multiple_biddings_with_high_value,companies_that_won_in_the_same_bidding,companies_that_won_in_the_same_bidding_with_high_value,companies_that_won_in_same_period,companies_that_won_multiple_times_considering_total_values)
 
 		response = {
 			'Winner companies': winner_companies,
+			'Companies that won in multiple biddings':companies_that_won_in_multiple_biddings,
+			'Companies that won in multiple biddings with high value':companies_that_won_in_multiple_biddings_with_high_value,
+			'Companies that won multiple times in the same bidding':companies_that_won_in_the_same_bidding,
+			'Companies that won multiple times in the same bidding with high value':companies_that_won_in_the_same_bidding_with_high_value,
+			'Companies that won multiple times in the same period':companies_that_won_in_same_period,
+			'Companies that won multiple times considering company size':companies_that_won_multiple_times_considering_total_values
 		}
 		self.set_status(200)  # http 200 ok
 		self.write(response)
@@ -35,47 +42,52 @@ class CompaniesHandler(tornado.web.RequestHandler):
 
 
 	@gen.coroutine
-	def get_winner_companies(cursor):
+	def get_winner_companies(self):
+		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
 		winner_companies = {}
 		while (yield cursor.fetch_next):
 
 			element = cursor.next_object()
 			companies = element['empresas']
+			licit = element['objeto']
 
 			for company in companies:
 				# Company has already won any process
 				if company['nome_empresa'] in winner_companies:
 					winner_companies[company['nome_empresa']]['number_of_wins'] += 1
 					winner_companies[company['nome_empresa']]['valor_global'] += company['valor_global']
+					winner_companies[company['nome_empresa']]['wonBiddings'].append(licit)
 				else:
-					winner_companies[company['nome_empresa']] = {"number_of_wins":1,"total_value":company['valor_global']}
+					winner_companies[company['nome_empresa']] = {"number_of_wins":1,"total_value":company['valor_global'],"wonBiddings":[licit]}
+		
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_all_biddings(cursor):
-		winner_companies = yield CompaniesHandler.get_winner_companies(cursor)
+	def get_company_winning_in_all_biddings(self):
+		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 		for key,value in list(winner_companies.items() ):
 			if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings:
 				del winner_companies[key]
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_all_biddings_above_value_threshold(cursor):
-		winner_companies = yield CompaniesHandler.get_winner_companies(cursor)
+	def get_company_winning_in_all_biddings_above_value_threshold(self):
+		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 		for key,value in list(winner_companies.items() ):
-			if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings or CompaniesHandler.convert_one_value(value['valor_global']) <= ConfigHandler.maximum_total_value_allowed:
+			if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings or CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_total_value_allowed:
 				del winner_companies[key]
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_considering_company_size(cursor):
-		winner_companies = yield CompaniesHandler.get_winner_companies(cursor)
+	def get_company_winning_considering_company_size(self):
+		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 
-		winner_companies['Ferragens Lider Comercio e Serviços EIRELI - EPP']['number_of_wins'] = 2
+		#winner_companies['Ferragens Lider Comercio e Serviços EIRELI - EPP']['number_of_wins'] = 2
 
 		for key,value in list(winner_companies.items() ):
 			if value['number_of_wins'] == 1:
-				del winner_companies[key]
+				nothing = 1
+				#del winner_companies[key]
 			elif value['number_of_wins'] == 2 and CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_value_allowed_for_two_wins:
 				del winner_companies[key]
 			elif value['number_of_wins'] == 3 and CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_value_allowed_for_three_wins:
@@ -84,8 +96,9 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_same_licit(cursor):
+	def get_company_winning_in_same_bidding(self):
 
+		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
 		winner_companies = []
 		while (yield cursor.fetch_next):
 			element = cursor.next_object()
@@ -126,8 +139,8 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		return converted_value
 
 	@gen.coroutine
-	def get_company_winning_in_same_licit_above_value_threshold(cursor):
-		winner_companies = yield CompaniesHandler.get_company_winning_in_same_licit(cursor)
+	def get_company_winning_in_same_bidding_above_value_threshold(self):
+		winner_companies = yield CompaniesHandler.get_company_winning_in_same_bidding(self)
 
 		for element in winner_companies:
 			for key,value in list(element['multiple_win_companies'].items() ):
@@ -142,7 +155,9 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_companies_vigent_ranges(cursor):
+	def get_companies_vigent_ranges(self):
+
+		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
 		dateranges = {}
 		Range = namedtuple('Range', ['start', 'end'])
 		while (yield cursor.fetch_next):
@@ -168,17 +183,17 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		return dateranges
 
 	@gen.coroutine
-	def company_winning_more_than_one_bidding_in_the_same_period(cursor):
-		date_ranges = yield CompaniesHandler.get_companies_vigent_ranges(cursor)
+	def company_winning_more_than_one_bidding_in_the_same_period(self):
+		date_ranges = yield CompaniesHandler.get_companies_vigent_ranges(self)
 		# At this point i have the dateranges for each company
 		# Now it's necessary to check if any date overlaps
 
-		'''
+		
 		Range = namedtuple('Range', ['start', 'end'])
 		r1 = Range(start=str(datetime(2016, 6, 30)), end=str(datetime(2016, 7, 6)))
 		json = {"licitacao":"SERVIÇO DE INTALAÇÃO DE FORROS","daterange":r1 }
 		date_ranges['José Espedito Cavalcanti - ME'].append(json)
-		'''
+		
 		overlaping_dates = []
 
 		for key in date_ranges:
@@ -207,3 +222,22 @@ class CompaniesHandler(tornado.web.RequestHandler):
 			return delta+1
 		else:
 			return 0
+
+	def save_suspectious(self,companies_that_won_in_multiple_biddings,companies_that_won_in_multiple_biddings_with_high_value,companies_that_won_in_the_same_bidding,companies_that_won_in_the_same_bidding_with_high_value,companies_that_won_in_same_period,companies_that_won_multiple_times_considering_total_values):
+		# Save erros in db		
+		# Remove all previous errors, once all the biddings will be analyzed
+		self.application.mongodb.suspicious_biddings.remove()
+		for key in companies_that_won_in_multiple_biddings:
+			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple biddings","company":key,"wins":companies_that_won_in_multiple_biddings[key]})
+		for key in companies_that_won_in_multiple_biddings_with_high_value:
+			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple biddings in a high value","company":key,"wins":companies_that_won_in_multiple_biddings_with_high_value[key]})
+		for element in companies_that_won_in_the_same_bidding:
+			for key in element['multiple_win_companies']:
+				self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple times in the same bidding","company":key,"wins":element['multiple_win_companies'][key]})
+		for element in companies_that_won_in_the_same_bidding_with_high_value:
+			for key in element['multiple_win_companies']:
+				self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple times in the same bidding with high value","company":key,"wins":element['multiple_win_companies'][key]})
+		for element in companies_that_won_in_the_same_bidding_with_high_value:
+			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple in the same period","company":key,"wins":element})
+		for key in companies_that_won_multiple_times_considering_total_values:
+			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple times considering company size","company":key,"wins":companies_that_won_multiple_times_considering_total_values[key]})

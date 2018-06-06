@@ -1,1 +1,83 @@
+ERROR:tornado.application:Uncaught exception GET /get_winner_companies (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_winner_companies', version='HTTP/1.1', remote_ip='::1', headers={'Authorization': 'Bearer generate_password', 'Host': 'localhost:9000', 'Content-Type': 'application/json'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1021, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/CompaniesHandler.py", line 20, in get
+    companies_that_won_in_multiple_biddings_with_high_value = yield CompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/CompaniesHandler.py", line 82, in get_company_winning_in_all_biddings_above_value_threshold
+    if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings or CompaniesHandler.convert_one_value(value['valor_global']) <= ConfigHandler.maximum_total_value_allowed:
+KeyError: 'valor_global'
+ERROR:tornado.access:500 GET /get_winner_companies (::1) 8.30ms
 DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_winner_companies (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_winner_companies', version='HTTP/1.1', remote_ip='::1', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password', 'Host': 'localhost:9000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1021, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/CompaniesHandler.py", line 20, in get
+    companies_that_won_in_multiple_biddings_with_high_value = yield CompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/CompaniesHandler.py", line 83, in get_company_winning_in_all_biddings_above_value_threshold
+    if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings or CompaniesHandler.convert_one_value(value['valor_global']) <= ConfigHandler.maximum_total_value_allowed:
+KeyError: 'valor_global'
+ERROR:tornado.access:500 GET /get_winner_companies (::1) 7.05ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 32.49ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 24.96ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 46.95ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_winner_companies (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_winner_companies', version='HTTP/1.1', remote_ip='::1', headers={'Host': 'localhost:9000', 'Authorization': 'Bearer generate_password', 'Content-Type': 'application/json'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1021, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/CompaniesHandler.py", line 18, in get
+    winner_companies = yield CompaniesHandler.get_winner_companies()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+TypeError: get_winner_companies() missing 1 required positional argument: 'self'
+ERROR:tornado.access:500 GET /get_winner_companies (::1) 8.15ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 87.78ms
