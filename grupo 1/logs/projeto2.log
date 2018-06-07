@@ -81,3 +81,99 @@ TypeError: get_winner_companies() missing 1 required positional argument: 'self'
 ERROR:tornado.access:500 GET /get_winner_companies (::1) 8.15ms
 DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 GET /get_winner_companies (::1) 87.78ms
+DEBUG:root:Started application on port 9000
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:urllib3.connectionpool:https://docs.google.com:443 "GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+DEBUG:chardet.charsetprober:utf-8  confidence = 0.99
+DEBUG:chardet.charsetprober:SHIFT_JIS Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-JP Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:GB2312 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-KR Korean confidence = 0.01
+DEBUG:chardet.charsetprober:CP949 Korean confidence = 0.01
+DEBUG:chardet.charsetprober:Big5 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-TW Taiwan confidence = 0.01
+DEBUG:chardet.charsetprober:windows-1251 Russian confidence = 0.01
+DEBUG:chardet.charsetprober:KOI8-R Russian confidence = 0.01
+DEBUG:chardet.charsetprober:ISO-8859-5 Russian confidence = 0.0
+DEBUG:chardet.charsetprober:MacCyrillic Russian confidence = 0.0
+DEBUG:chardet.charsetprober:IBM866 Russian confidence = 0.0
+DEBUG:chardet.charsetprober:IBM855 Russian confidence = 0.01
+DEBUG:chardet.charsetprober:ISO-8859-7 Greek confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1253 Greek confidence = 0.0
+DEBUG:chardet.charsetprober:ISO-8859-5 Bulgairan confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1251 Bulgarian confidence = 0.0
+DEBUG:chardet.charsetprober:TIS-620 Thai confidence = 0.11306783141897775
+DEBUG:chardet.charsetprober:ISO-8859-9 Turkish confidence = 0.5055024289457036
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:utf-8  confidence = 0.99
+DEBUG:chardet.charsetprober:SHIFT_JIS Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-JP Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:GB2312 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-KR Korean confidence = 0.01
+DEBUG:chardet.charsetprober:CP949 Korean confidence = 0.01
+DEBUG:chardet.charsetprober:Big5 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-TW Taiwan confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-TW Taiwan prober hit error at byte 50
+DEBUG:chardet.charsetprober:EUC-JP Japanese prober hit error at byte 12
+DEBUG:chardet.charsetprober:EUC-KR Korean prober hit error at byte 12
+DEBUG:chardet.charsetprober:utf-8  confidence = 0.99
+DEBUG:chardet.charsetprober:SHIFT_JIS Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-JP not active
+DEBUG:chardet.charsetprober:GB2312 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-KR not active
+DEBUG:chardet.charsetprober:CP949 Korean confidence = 0.01
+DEBUG:chardet.charsetprober:Big5 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-TW not active
+DEBUG:chardet.charsetprober:windows-1251 Russian confidence = 0.01
+DEBUG:chardet.charsetprober:KOI8-R Russian confidence = 0.01
+DEBUG:chardet.charsetprober:ISO-8859-5 Russian confidence = 0.0
+DEBUG:chardet.charsetprober:MacCyrillic Russian confidence = 0.0
+DEBUG:chardet.charsetprober:IBM866 Russian confidence = 0.0
+DEBUG:chardet.charsetprober:IBM855 Russian confidence = 0.01
+DEBUG:chardet.charsetprober:ISO-8859-7 Greek confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1253 Greek confidence = 0.0
+DEBUG:chardet.charsetprober:ISO-8859-5 Bulgairan confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1251 Bulgarian confidence = 0.0
+DEBUG:chardet.charsetprober:TIS-620 Thai confidence = 0.11608003485509086
+DEBUG:chardet.charsetprober:ISO-8859-9 Turkish confidence = 0.5055024289457036
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:windows-1255 Hebrew confidence = 0.0
+DEBUG:chardet.charsetprober:utf-8  confidence = 0.99
+DEBUG:chardet.charsetprober:SHIFT_JIS Japanese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-JP not active
+DEBUG:chardet.charsetprober:GB2312 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-KR not active
+DEBUG:chardet.charsetprober:CP949 Korean confidence = 0.01
+DEBUG:chardet.charsetprober:Big5 Chinese confidence = 0.01
+DEBUG:chardet.charsetprober:EUC-TW not active
+ERROR:tornado.application:Uncaught exception GET /charge_unb_biddings (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_unb_biddings', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/chaves/Projeto_Transversal2/Projeto_Transversal2/Projeto_Transversal2/grupo 1/handlers/ChargeUnbBiddingsHandler.py", line 167, in get
+    yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/home/chaves/Projeto_Transversal2/Projeto_Transversal2/Projeto_Transversal2/grupo 1/handlers/PDFHandler.py", line 213, in delete_all_extensions_files
+    all_files = os.listdir(dir_name)
+FileNotFoundError: [Errno 2] No such file or directory: './pdf'
+ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 4879.00ms
+INFO:tornado.access:200 GET /get_empresas (::1) 571.55ms
+WARNING:tornado.access:405 GET /get_empresa (::1) 0.80ms
+INFO:tornado.access:200 GET /get_licitacoes (::1) 60.97ms

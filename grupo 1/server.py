@@ -12,6 +12,10 @@ from handlers.ConfigHandler import ConfigHandler
 from handlers.ChargeUnbBiddingsHandler import ChargeUnbBiddings
 from handlers.ValuesHandler import ValuesHandler
 from handlers.CompaniesHandler import CompaniesHandler
+from handlers.EmpresasHandler import EmpresasHandler
+from handlers.EmpresaHandler import EmpresaHandler
+from handlers.ProcessosHandler import ProcessosHandler
+from handlers.LicitacoesHandler import LicitacoesHandler
 
 def create_web_server():
 
@@ -23,6 +27,10 @@ def create_web_server():
         (r"/charge_unb_biddings", ChargeUnbBiddings),
         (r"/get_values_differences", ValuesHandler),
         (r"/get_winner_companies", CompaniesHandler)
+        (r"/get_empresas", EmpresasHandler),
+        (r"/get_empresa", EmpresaHandler),
+        (r"/get_processos", ProcessosHandler),
+        (r"/get_licitacoes", LicitacoesHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})
     ]
