@@ -4,7 +4,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
 
 ## Sumário das Endpoints
 
-- [Get values differences](#get_values_differences)
+- [get_values_differences](#get_values_differences)
 - [get_winner_companies](#get_winner_companies)
 - [get_empresas](#get_empresas)
 - [get_empresa](#get_empresa)
