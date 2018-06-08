@@ -11,11 +11,11 @@ import os
 import xlrd
 
 
-class ChargeGrupo2(tornado.web.RequestHandler):
+class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 	@gen.coroutine
 	def create_column(df,nm):
-    		df[f'{nm}']=[]
+		df[f'{nm}']=[]
 
 	@gen.coroutine
 	# LEITURA DE ARQUIVO EXCEL RETORNANDO COMO DATAFRAME A ABA [0]
@@ -23,9 +23,9 @@ class ChargeGrupo2(tornado.web.RequestHandler):
 		return pd.ExcelFile(file).parse(pd.ExcelFile(file).sheet_names[0])
 	
 	@gen.coroutine
-	def generate_df():
+	def get():
 		#CAMINHO (###Tem que alterar para o do docker que Grupo 1 ta usando!!###)
-		path="//Excel"
+		path="../../Grupo2/Excel"
 
 
 		#DATAFRAMES:
@@ -60,13 +60,10 @@ class ChargeGrupo2(tornado.web.RequestHandler):
 				df1 = df1.append({'Licitações':arr_licitacoes[i],'Lotes':arr_lotes[i][k]}, ignore_index=True)
 
 
-		# SAIDA DO DATAFRAME 1 | CONTEM TODAS AS PASTAS E LOTES COMO UM INDICE QUE SERA USADO DEPOIS
-		df1
-
 
 		### CRIA AS COLUNAS NA TABELA_UNICA BASEADO NUME PRIMEIRA LEITURA DO PRIMEIRO LOTE
 
-		lote = le_excel(f'{path}//{df1.Licitações[0]}//{df1.Lotes[0]}')
+		lote = read_excel(f'{path}//{df1.Licitações[0]}//{df1.Lotes[0]}')
 
 
 		for nm in df1.columns:
@@ -81,9 +78,9 @@ class ChargeGrupo2(tornado.web.RequestHandler):
 		for i in range(len(df1)):
 			if df1.Licitações[i] in list(tabela_unica.Licitações):
 				continue
-		lote = le_excel(f'{path}//{df1.Licitações[i]}//{df1.Lotes[i]}')
+		lote = read_excel(f'{path}//{df1.Licitações[i]}//{df1.Lotes[i]}')
 		for k in range(len(lote)):
-        		tabela_unica = tabela_unica.append({'Licitações':df1.Licitações[i],'Lotes':df1.Lotes[i],'Item':lote.Item[k],'Descrição':lote.Descrição[k],'Quantidade':lote.Quantidade[k],'Mercadoria':lote.Mercadoria[k]},ignore_index=True)
+				tabela_unica = tabela_unica.append({'Licitações':df1.Licitações[i],'Lotes':df1.Lotes[i],'Item':lote.Item[k],'Descrição':lote.Descrição[k],'Quantidade':lote.Quantidade[k],'Mercadoria':lote.Mercadoria[k]},ignore_index=True)
 
 
-		
+		print(tabela_unica)

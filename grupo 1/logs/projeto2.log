@@ -177,3 +177,7 @@ ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 4879.00ms
 INFO:tornado.access:200 GET /get_empresas (::1) 571.55ms
 WARNING:tornado.access:405 GET /get_empresa (::1) 0.80ms
 INFO:tornado.access:200 GET /get_licitacoes (::1) 60.97ms
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_values_differences (::1) 86.21ms
