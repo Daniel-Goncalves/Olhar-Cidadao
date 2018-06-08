@@ -80,7 +80,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 				continue
 		lote = read_excel('{}/{}/{}'.format(path, df1.Licitações[i], df1.Lotes[i]))
 		for k in range(len(lote)):
-				tabela_unica = tabela_unica.append({'_id': ObjectId(), 'pdf_url': null, 'classificacao';: null, 'fiscal': null, 'valor_total': null, 'numero_processo':df1.Licitações[i],'edital':df1.Lotes[i], 'objeto':lote.Mercadoria[k], 'contrato': null, 'materiais_e_servicos': null, 'demandante': null, 'empresas': ['valor_estimado': null, 'nome_empresa': null, 'termo_aditivo': null, 'vigencia': null, 'valor_global': null, 'ata': null, 'descricao_empresa': null]'Item':lote.Item[k],'Descrição':lote.Descrição[k],'Quantidade':lote.Quantidade[k],},ignore_index=True)
+				tabela_unica = tabela_unica.append({'_id': ObjectId(), 'pdf_url': null, 'classificacao';: null, 'fiscal': null, 'valor_total': null, 'numero_processo':df1.Licitações[i],'edital':df1.Lotes[i], 'objeto':lote.Mercadoria[k], 'contrato': null, 'materiais_e_servicos': null, 'demandante': null, 'empresas': ['valor_estimado': null, 'nome_empresa': null, 'termo_aditivo': null, 'vigencia': null, 'valor_global': null, 'ata': null, 'descricao_empresa': null]'},ignore_index=True)
 
 		records = json.loads(self.tabela_unica.T.to_json()).values()
 		self.collection.insert(records)
