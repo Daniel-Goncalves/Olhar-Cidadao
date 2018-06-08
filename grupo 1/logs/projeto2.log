@@ -181,3 +181,155 @@ DEBUG:root:Started application on port 9000
 DEBUG:root:Started application on port 9000
 DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 GET /get_values_differences (::1) 86.21ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.access:404 GET /endpoint (::1) 0.61ms
+WARNING:tornado.access:404 GET /endpoint (::1) 0.62ms
+WARNING:tornado.access:404 GET /endpoint (::1) 0.63ms
+WARNING:tornado.access:404 GET /charge_grupo2 (::1) 0.63ms
+WARNING:tornado.access:404 GET /charge_group2 (::1) 0.62ms
+WARNING:tornado.access:404 GET /charge_grupo2 (::1) 0.61ms
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+WARNING:tornado.access:404 GET /ChargeGrupo2 (::1) 0.59ms
+WARNING:tornado.access:404 GET /chargeGroup2 (::1) 0.52ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /charge_grupo2 (::1)
+HTTPServerRequest(protocol='http', host='Localhost:9000', method='GET', uri='/charge_grupo2', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+TypeError: get() takes 0 positional arguments but 1 was given
+ERROR:tornado.access:500 GET /charge_grupo2 (::1) 47.99ms
+ERROR:tornado.application:Uncaught exception GET /charge_grupo2 (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_grupo2', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+TypeError: get() takes 0 positional arguments but 1 was given
+ERROR:tornado.access:500 GET /charge_grupo2 (::1) 1.52ms
+WARNING:tornado.access:404 GET /chargGroup2 (::1) 0.77ms
+WARNING:tornado.access:404 GET /chargeGroup2 (::1) 0.69ms
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+ERROR:tornado.application:Uncaught exception GET /charge_unb_biddings (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_unb_biddings', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/ChargeUnbBiddingsHandler.py", line 167, in get
+    yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/PDFHandler.py", line 213, in delete_all_extensions_files
+    all_files = os.listdir(dir_name)
+FileNotFoundError: [Errno 2] No such file or directory: './pdf'
+ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 2777.42ms
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+ERROR:tornado.application:Uncaught exception GET /charge_unb_biddings (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_unb_biddings', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/ChargeUnbBiddingsHandler.py", line 167, in get
+    yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/PDFHandler.py", line 213, in delete_all_extensions_files
+    all_files = os.listdir(dir_name)
+FileNotFoundError: [Errno 2] No such file or directory: './pdf'
+ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 2279.55ms
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+ERROR:tornado.application:Uncaught exception GET /charge_unb_biddings (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_unb_biddings', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/ChargeUnbBiddingsHandler.py", line 167, in get
+    yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/PDFHandler.py", line 213, in delete_all_extensions_files
+    all_files = os.listdir(dir_name)
+FileNotFoundError: [Errno 2] No such file or directory: './pdf'
+ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 2790.47ms
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): docs.google.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml HTTP/1.1" 200 None
+ERROR:tornado.application:Uncaught exception GET /charge_unb_biddings (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_unb_biddings', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/ChargeUnbBiddingsHandler.py", line 167, in get
+    yield PDFHandler.delete_all_extensions_files("./pdf","pdf")
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/gustavo181997/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/home/gustavo181997/Documentos/Projeto_Transversal2/grupo 1/handlers/PDFHandler.py", line 213, in delete_all_extensions_files
+    all_files = os.listdir(dir_name)
+FileNotFoundError: [Errno 2] No such file or directory: './pdf'
+ERROR:tornado.access:500 GET /charge_unb_biddings (::1) 2320.56ms

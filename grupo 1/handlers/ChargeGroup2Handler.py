@@ -15,7 +15,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 	@gen.coroutine
 	def create_column(df,nm):
-		df[f'{nm}']=[]
+		df['{}'.format(nm)]=[]
 
 	@gen.coroutine
 	# LEITURA DE ARQUIVO EXCEL RETORNANDO COMO DATAFRAME A ABA [0]
@@ -47,7 +47,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 		#lê cada pasta de licitações e obtem os lotes como strings
 		arr_lotes=[]
 		for diretorio in arr_licitacoes:
-			arr_lotes+=[os.listdir(f'{path}//{diretorio}')]
+			arr_lotes+=[os.listdir('{}/{}'.format(path, diretorio))]
 
 
 		### GRAVA NO DATAFRAME1 OS NOMES DE LICITAÇÕES E LOTES
@@ -63,7 +63,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 		### CRIA AS COLUNAS NA TABELA_UNICA BASEADO NUME PRIMEIRA LEITURA DO PRIMEIRO LOTE
 
-		lote = read_excel(f'{path}//{df1.Licitações[0]}//{df1.Lotes[0]}')
+		lote = read_excel('{}/{}/{}'.format(path, df1.Licitações[0], df1.Lotes[0]))
 
 
 		for nm in df1.columns:
@@ -78,9 +78,11 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 		for i in range(len(df1)):
 			if df1.Licitações[i] in list(tabela_unica.Licitações):
 				continue
-		lote = read_excel(f'{path}//{df1.Licitações[i]}//{df1.Lotes[i]}')
+		lote = read_excel('{}/{}/{}'.format(path, df1.Licitações[i], df1.Lotes[i]))
 		for k in range(len(lote)):
-				tabela_unica = tabela_unica.append({'Licitações':df1.Licitações[i],'Lotes':df1.Lotes[i],'Item':lote.Item[k],'Descrição':lote.Descrição[k],'Quantidade':lote.Quantidade[k],'Mercadoria':lote.Mercadoria[k]},ignore_index=True)
+				tabela_unica = tabela_unica.append({'_id': ObjectId(), 'pdf_url': null, 'classificacao';: null, 'fiscal': null, 'valor_total': null, 'numero_processo':df1.Licitações[i],'edital':df1.Lotes[i], 'objeto':lote.Mercadoria[k], 'contrato': null, 'materiais_e_servicos': null, 'demandante': null, 'empresas': ['valor_estimado': null, 'nome_empresa': null, 'termo_aditivo': null, 'vigencia': null, 'valor_global': null, 'ata': null, 'descricao_empresa': null]'Item':lote.Item[k],'Descrição':lote.Descrição[k],'Quantidade':lote.Quantidade[k],},ignore_index=True)
 
+		records = json.loads(self.tabela_unica.T.to_json()).values()
+		self.collection.insert(records)
 
 		print(tabela_unica)
