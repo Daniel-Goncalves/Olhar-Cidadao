@@ -4,12 +4,12 @@ Breve documentação sobre a API e os respectivos EndPoints.
 
 ## Sumário das Endpoints
 
--[get_values_differences].(**get_values_differences**)
--[get_winner_companies].(#get_winner_companies)
--[get_empresas].(#get_empresas)
--[get_empresa].(#get_empresa)a
--[get_processos].(#get_processos)
--[get_licitacoes].(#get_values_differences)
+- [get_values_differences].(#get_values_differences)
+- [get_winner_companies].(#get_winner_companies)
+- [get_empresas].(#get_empresas)
+- [get_empresa].(#get_empresa)
+- [get_processos].(#get_processos)
+- [get_licitacoes].(#get_values_differences)
 
 **get_values_differences**
 ----
