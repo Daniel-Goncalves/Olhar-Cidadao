@@ -2,16 +2,16 @@
 
 Breve documentação sobre a API e os respectivos EndPoints.
 
-## Endpoints
+## Sumário das Endpoints
 
 -[get_values_differences].(#get_values_differences)
 -[get_winner_companies].(#get_winner_companies)
 -[get_empresas].(#get_empresas)
 -[get_empresa].(#get_empresa)
 -[get_processos].(#get_processos)
--[get_licitacoes].(#get_licitacoes)
+-[get_licitacoes].(#get_values_differences)
 
-## get_values_differences
+**get_values_differences**
 ----
   Retorna um json contendo os valores de cada item extraído das licitações, com o preço unitário multiplicado pela quantidade comprada e o valor total
 
@@ -22,8 +22,10 @@ Breve documentação sobre a API e os respectivos EndPoints.
 * **Method:**
   
   `GET`
+
+  `GET` | `POST` | `DELETE` | `PUT`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -46,7 +48,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
       ]
     ```
  
-## get_winner_companies
+**get_winner_companies**
 ----
   Retorna um json contendo quantas vezes as empresas venceram o pregão da licitação.
 
@@ -57,8 +59,10 @@ Breve documentação sobre a API e os respectivos EndPoints.
 * **Method:**
   
   `GET`
+
+  `GET` | `POST` | `DELETE` | `PUT`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -85,7 +89,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
     ]
     ```
  
-## get_empresas
+**get_empresas**
 ----
   Retorna um json contendo todas as informações de todas as empresas que estão no banco de dados.
 
@@ -97,7 +101,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
   
   `GET`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -124,7 +128,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
     ]        
     ```
 
-## get_empresa
+**get_empresa**
 ----
   Recebe como parâmetro o nome de uma empresa específica e retorna um json com as informações referentes a empresa específica, assim como o número do processo a qual está participando.
 
@@ -136,7 +140,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
   
   `POST`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -167,7 +171,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
     }
     ```
  
-## get_processos
+**get_processos**
 ----
   Recebe como parâmetro o nome de uma empresa específica e retorna um json com apenas quais processos essa empresa está participando.
 
@@ -179,7 +183,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
   
   `POST`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -201,7 +205,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
     }
     ```
 
-## get_licitacoes
+**get_licitacoes**
 ----
   Retorna um json contendo todas as licitações do banco de dados, mostrando todas as informações a respeito (empresas, preço, data...)
 
@@ -213,7 +217,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
   
   `GET`
   
-*  **URL Params**
+* **URL Params**
   
   None
 
@@ -261,3 +265,5 @@ Breve documentação sobre a API e os respectivos EndPoints.
             "numero_processo": "23106.008771/2015-57"
         },
     ```
+ 
+ 
