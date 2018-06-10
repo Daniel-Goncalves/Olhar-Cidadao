@@ -16,7 +16,7 @@ from handlers.EmpresasHandler import EmpresasHandler
 from handlers.EmpresaHandler import EmpresaHandler
 from handlers.ProcessosHandler import ProcessosHandler
 from handlers.LicitacoesHandler import LicitacoesHandler
-#from handlers.ChargeGroup2Handler import ChargeGroup2Handler
+from handlers.ChargeGroup2Handler import ChargeGroup2Handler
 
 def create_web_server():
 
@@ -26,7 +26,7 @@ def create_web_server():
     # Roteamento para as diferentes URIs
     handlers = [
         (r"/charge_unb_biddings", ChargeUnbBiddings),
-        #(r"/charge_grupo2",ChargeGrupo2Handler),
+        (r"/charge_grupo2", ChargeGroup2Handler),
         (r"/get_licitacoes", LicitacoesHandler),
         (r"/get_values_differences", ValuesHandler),
         (r"/get_winner_companies", CompaniesHandler),

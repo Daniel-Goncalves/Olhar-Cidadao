@@ -11,7 +11,7 @@ from handlers.ConfigHandler import ConfigHandler
 
 class CompaniesHandler(tornado.web.RequestHandler):
 
-		
+
 	@gen.coroutine
 	def get(self):
 
