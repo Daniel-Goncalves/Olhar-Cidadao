@@ -28,7 +28,7 @@ class CompaniesHandler(tornado.web.RequestHandler):
 
 		response = {
 			'Winner companies': winner_companies,
-			'Companies that won in multiple biddings':companies_that_won_in_multiple_biddings,
+			'Companies that won multiple times in all bidding':companies_that_won_in_multiple_biddings,
 			'Companies that won in multiple biddings with high value':companies_that_won_in_multiple_biddings_with_high_value,
 			'Companies that won multiple times in the same bidding':companies_that_won_in_the_same_bidding,
 			'Companies that won multiple times in the same bidding with high value':companies_that_won_in_the_same_bidding_with_high_value,
@@ -206,7 +206,7 @@ class CompaniesHandler(tornado.web.RequestHandler):
 					range2 = date_ranges[key][j]['daterange']
 					overlaped_days = CompaniesHandler.dates_overlap_days(range1,range2)
 					if overlaped_days != 0:
-						overlaping_dates.append({"Licitacao1":licit1,"Range1":range1,"Licitacao2":licit2,"Range2":range2,"Overlaped days":overlaped_days})
+						overlaping_dates.append({"company":key,"Licitacao1":licit1,"Range1":range1,"Licitacao2":licit2,"Range2":range2,"Overlaped days":overlaped_days})
 
 		return overlaping_dates
 
