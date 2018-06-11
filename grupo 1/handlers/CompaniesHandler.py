@@ -86,8 +86,8 @@ class CompaniesHandler(tornado.web.RequestHandler):
 
 		for key,value in list(winner_companies.items() ):
 			if value['number_of_wins'] == 1:
-				nothing = 1
-				#del winner_companies[key]
+				#nothing = 1
+				del winner_companies[key]
 			elif value['number_of_wins'] == 2 and CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_value_allowed_for_two_wins:
 				del winner_companies[key]
 			elif value['number_of_wins'] == 3 and CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_value_allowed_for_three_wins:
@@ -189,10 +189,10 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		# Now it's necessary to check if any date overlaps
 
 		
-		Range = namedtuple('Range', ['start', 'end'])
-		r1 = Range(start=str(datetime(2016, 6, 30)), end=str(datetime(2016, 7, 6)))
-		json = {"licitacao":"SERVIÇO DE INTALAÇÃO DE FORROS","daterange":r1 }
-		date_ranges['José Espedito Cavalcanti - ME'].append(json)
+		#Range = namedtuple('Range', ['start', 'end'])
+		#r1 = Range(start=str(datetime(2016, 6, 30)), end=str(datetime(2016, 7, 6)))
+		#json = {"licitacao":"SERVIÇO DE INTALAÇÃO DE FORROS","daterange":r1 }
+		#date_ranges['José Espedito Cavalcanti - ME'].append(json)
 		
 		overlaping_dates = []
 
@@ -237,7 +237,7 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		for element in companies_that_won_in_the_same_bidding_with_high_value:
 			for key in element['multiple_win_companies']:
 				self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple times in the same bidding with high value","company":key,"wins":element['multiple_win_companies'][key]})
-		for element in companies_that_won_in_the_same_bidding_with_high_value:
+		for element in companies_that_won_in_same_period:
 			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple in the same period","company":key,"wins":element})
 		for key in companies_that_won_multiple_times_considering_total_values:
 			self.application.mongodb.suspicious_biddings.insert({"suspected":"Company won multiple times considering company size","company":key,"wins":companies_that_won_multiple_times_considering_total_values[key]})
