@@ -27,7 +27,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		#self.table = pd.read_html(unb_biddings_url)[0]
 		#columns = table.iloc[2].tolist()   # This row actually represents the columns. Pop 0 because the first element is the row number
 		#columns.pop(0)
-		columns = ['objeto','numero_processo','materiais_e_servicos','contrato','empresas','edital','demandante','fiscal','valor_total','classificacao','pdf_url']
+		columns = ['objeto','numero_processo','materiais_e_servicos','contrato','empresas','edital','demandante','fiscal','valor_total','classificacao','pdf_url','instituicao']
 		licit_df = pd.DataFrame(columns=columns)
 		return licit_df
 
@@ -50,7 +50,6 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		records = json.loads(self.licit_df.T.to_json()).values()
 		for record in records:
 			self.licit_collection.update({'numero_processo':record['numero_processo']},record,upsert=True)
-
 	@gen.coroutine
 	def treat_table_row(self,row_info,index_row):
 		
@@ -101,7 +100,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		elif row_info[0] == "Valor Total:": 
 			# Concluido um objeto
 			valor_total = row_info[1]
-			self.licit_df.loc[self.licit_df_index] = [self.objeto,self.numero_processo,self.materiais_e_servicos,self.contrato,self.empresas,self.edital,self.demandante,self.fiscal,valor_total,self.state,None]
+			self.licit_df.loc[self.licit_df_index] = [self.objeto,self.numero_processo,self.materiais_e_servicos,self.contrato,self.empresas,self.edital,self.demandante,self.fiscal,valor_total,self.state,None,"UnB"]
 			self.licit_df_index = self.licit_df_index + 1
 			self.new_object = True
 			self.empresas = []
@@ -141,6 +140,7 @@ class ChargeUnbBiddings(tornado.web.RequestHandler):
 		
 		empresas = []
 		self.new_object = True
+		#self.instituicao = "UnB"
 		self.state = "CONTRATOS EXPIRADOS"
 		for index_row in range(self.inicio_proxima_classificacao,len(self.table)):
 			row_info = self.table.iloc[index_row].tolist()

@@ -1,1 +1,20 @@
 INFO:tornado.access:200 GET /get_suspects (::1) 13.02ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /charge_grupo2 (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_grupo2', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 296, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+TypeError: get() takes 0 positional arguments but 1 was given
+ERROR:tornado.access:500 GET /charge_grupo2 (::1) 67.35ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_instituicao (::1) 748.39ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 38.18ms
