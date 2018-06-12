@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#import logging
 import sys, os, json, time, re
 import pymongo
 from pymongo import MongoClient
-from UnbScrapy import UnbScrapy
+from InitScrapy import InitScrapy
 
 class Validation():
   def __init__(self):
@@ -12,25 +11,42 @@ class Validation():
     if os.path.isfile('results.json'):
       os.remove("results.json")
 
-    self.validate_products()
+    # Conexão com o banco de dados e início do processo de validação de dados:
+    self.client = MongoClient('localhost')
+    self.import_from_db()
     
+  def import_from_db(self):
+    # Importação dos dados dos materiais das licitações:
+    db = self.client.projeto2
+    materials = db.materials
 
-  def validate_products(self):
-    # Dados fixos, essa parte ficara dentro de um for para pegar todos os produtos do BD:
-    product_name = 'Alicate Para Eletrodo (500 A)'
-    suspect_price = '552,90'
-    suspect_company = "ANTONIO LIMITADA"
+    # Para cada material do BD:
+    for material in materials.find():
+      # Se a unidade não for 'Hora' (o que significa que é um serviço, fora do escopo do projeto):
+      if material['unidade'] != 'Hora':
+        # Este produto será validado:
+        self.validate_product(material)
 
-    # O objeto da classe Scrapy é criado com os dados do produto. Será considerado um máximo de 30 caracteres.
+  def validate_product(self, product):
+    # A descrição do produto, o preço unitário e o nome do fornecedor são extraídos:
+    product_name = product['especificacoes']
+    suspect_price = product['valor_unitario']
+    suspect_company = product['fornecedor']
+
+    # O objeto da classe Scrapy é criado com os dados do produto. Será considerado um máximo de 40 caracteres.
     # A função get_data() buscará preços na internet e retornará o resultado no arquivo results.json:
-    UnbScrapy(product_name[:30], suspect_price).get_data()
+    InitScrapy(product_name[:40])
 
-    # Lista de resultados e de preços, flag para indicar corrupção e o preço do produto em float:
+    # Listas de resultados e de preços:
     results = []
     prices = []
+
+    # Criação de flag para indicar corrupção:
     flag_corruption = False
+    
+    # Tratamento do preço do produto para float:
     suspect_price_temp = re.sub("[^0-9,]", "", suspect_price)
-    suspect_price_float = float(price_temp.replace(',','.'))
+    suspect_price_float = float(suspect_price_temp.replace(',','.'))
 
     # O arquivo results.json é aberto e cada linha é um dicionário.
     # Popula-se a lista de preços já convertidos em float.
@@ -38,7 +54,9 @@ class Validation():
     with open('results.json') as file:
       for line in file.readlines():
         data = json.loads(line)
-        prices.append(float(data['price'].replace(',','.')))
+        price_temp = re.sub("[^0-9,]", "", data['price'])
+        price_float = float(price_temp.replace(',','.'))
+        prices.append(price_float)
         results.append(data)
 
     # Deleta o arquivo de resultados já obtidos:
@@ -61,11 +79,8 @@ class Validation():
 
       # Os dados serão inseridos numa nova collection do BD:
       # Conexão com o BD é feita:
-      print "##########################################################################"
-      client = MongoClient('localhost')
-      db = client.teste_data
+      db = self.client.projeto2
       collection = db.data_teste
       collection.insert(results)
-      print "##########################################################################"
 
 validation = Validation()
