@@ -85,7 +85,7 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 			os.remove("results.json")
 
 			# Se o valor máximo da lista de preços for menor que o preço na licitação, é uma suspeita de corrupção:
-			if max(prices) < suspect_price_float:
+			if max(prices) < suspect_price_float and suspect_price_float < ConfigHandler.maximum_unit_value:
 				price = max(prices)
 				index = prices.index(max(prices)) 
 				flag_corruption = True
