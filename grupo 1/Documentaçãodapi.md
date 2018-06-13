@@ -265,7 +265,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
         },
     ```
     
-    **get_instituicao**
+**get_instituicao**
  ----
   Recebe como parâmetro o nome de uma instutição específica (UnB ou Barreiras) e retorna um json com todos os dados de todas as licitações dessa instituição.
 
@@ -294,7 +294,7 @@ Breve documentação sobre a API e os respectivos EndPoints.
     
     ```
     
-    **get_suspects**
+**get_suspects**
  ----
   Retorna uma lista de suspeitas com base no tamanho das empresas, quantas que ganharam as licitações, se ganharam mais de 1 vez na mesma licitação, se ganharam no mesmo periodo de tempo....
 
