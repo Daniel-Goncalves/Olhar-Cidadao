@@ -18,6 +18,9 @@ from handlers.ProcessosHandler import ProcessosHandler
 from handlers.LicitacoesHandler import LicitacoesHandler
 from handlers.SuspectsHandler import SuspectsHandler
 from handlers.ChargeGroup2Handler import ChargeGroup2Handler
+from handlers.InstituicoesHandler import InstituicoesHandler
+from handlers.SuspectedMaterialsHandler import SuspectedMaterialsHandler
+from handlers.MaterialsSuspectedHandler import MaterialsSuspectedHandler
 
 def create_web_server():
 
@@ -35,7 +38,10 @@ def create_web_server():
         (r"/get_empresa", EmpresaHandler),
         (r"/get_processos", ProcessosHandler),
         (r"/get_licitacoes", LicitacoesHandler),
-        (r"/get_suspects", SuspectsHandler)
+        (r"/get_instituicao", InstituicoesHandler),
+        (r"/get_suspects", SuspectsHandler),
+	(r"/get_suspected_materials", MaterialsSuspectedHandler),
+        (r"/search_suspected_materials",SuspectedMaterialsHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})
     ]
