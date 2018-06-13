@@ -10,6 +10,9 @@ Breve documentação sobre a API e os respectivos EndPoints.
 - [get_empresa](#get_empresa)
 - [get_processos](#get_processos)
 - [get_licitacoes](#get_values_differences)
+- [get_instituicao](#get_instituicao)
+- [get_suspects](#get_suspects)
+- [get_suspected_materials](#get_suspected_materials)
 
 **get_values_differences**
 ----
@@ -261,5 +264,86 @@ Breve documentação sobre a API e os respectivos EndPoints.
             "numero_processo": "23106.008771/2015-57"
         },
     ```
- 
- 
+    
+    **get_instituicao**
+ ----
+  Recebe como parâmetro o nome de uma instutição específica (UnB ou Barreiras) e retorna um json com todos os dados de todas as licitações dessa instituição.
+
+* **URL**
+
+  /get_instituicao
+
+* **Method:**
+  
+  `POST`
+  
+* **URL Params**
+  
+  None
+
+* **Data Params**
+
+  `{"instituicao" : "Nome da instituição a ser pesquisada}`
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Conteúdo do Json retornado:** 
+    
+    ```
+    
+    ```
+    
+    **get_suspects**
+ ----
+  Retorna uma lista de suspeitas com base no tamanho das empresas, quantas que ganharam as licitações, se ganharam mais de 1 vez na mesma licitação, se ganharam no mesmo periodo de tempo....
+
+* **URL**
+
+  /get_instituicao
+
+* **Method:**
+  
+  `GET`
+  
+* **URL Params**
+  
+  None
+
+* **Data Params**
+
+  None
+
+* **Success Response:**    get_suspected_materials
+  
+  * **Code:** 200 <br />
+    **Conteúdo do Json retornado:**
+    
+    ```
+    
+    ```
+
+**get_suspected_materials**
+ ----
+  Retorna todos os materiais suspeitos encontrados pelo scrappy de todas as licitações
+
+* **URL**
+
+  /get_instituicao
+
+* **Method:**
+  
+  `GET`
+  
+* **URL Params**
+  
+  None
+
+* **Data Params**
+
+  None
+
+* **Success Response:**    get_suspected_materials
+  
+  * **Code:** 200 <br />
+    **Conteúdo do Json retornado:**
