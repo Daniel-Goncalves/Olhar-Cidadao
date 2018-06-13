@@ -1,1 +1,4 @@
-INFO:tornado.access:200 GET /get_suspects (::1) 13.02ms
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
