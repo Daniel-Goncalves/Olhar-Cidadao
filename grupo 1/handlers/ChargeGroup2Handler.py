@@ -24,21 +24,25 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 	
 	@gen.coroutine
 	def get():
-		#CAMINHO (###Tem que alterar para o do docker que Grupo 1 ta usando!!###)
-		path="../../Grupo2/Excel"
+		#CAMINHO 
+		path="handlers/Excel"
 
 
 		#DATAFRAMES:
-		df1 = pd.DataFrame({})
+		df_materiais = pd.DataFrame({})
+		df_licitacoes = pd.DataFrame({})
+		df_lotes = pd.DataFrame({})
 		tabela_unica = pd.DataFrame({})
-
 
 		## SCRIPT
 
 
-		#cria as colunas no dataframe1:
-		create_column(df1,'Licitações')
-		create_column(df1,'Lotes')
+		#cria as colunas nos dataframes:
+		create_column(df_licitacoes,'Licitações')
+		create_column(df_licitacoes,'Lotes')
+
+		create_column(df_lotes,'Licitações')
+		create_column(df_lotes,'Lotes')
 
 
 		#le a pasta path e obtem o nome das pastas das licitações como uma string
@@ -46,43 +50,83 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 		#lê cada pasta de licitações e obtem os lotes como strings
 		arr_lotes=[]
+		arr_infos=[]
 		for diretorio in arr_licitacoes:
 			arr_lotes+=[os.listdir('{}/{}'.format(path, diretorio))]
+			arr_infos+=[os.listdir('{}/{}/{}'.format(path, diretorio,'Lotes'))]
+		arr_lotes2 = copy.deepcopy(arr_lotes)   
 
+		for i in range(len(arr_lotes2)):
+			for j in range(len(arr_lotes2[i])):
+				if arr_lotes2[i][j] == 'Lotes':
+					arr_lotes[i].remove(arr_lotes[i][j])
+				else:
+					continue 
+		arr_lotes3 = copy.deepcopy(arr_lotes)
 
+		for k in range(len(arr_lotes3)):
+    			for l in range(len(arr_lotes3[k])):
+        			if arr_lotes3[k][l][0] == '.':
+            				arr_lotes[k].remove(arr_lotes[k][l])
+            				break
+        			else:
+            				continue 
 		### GRAVA NO DATAFRAME1 OS NOMES DE LICITAÇÕES E LOTES
 
 
 		for i in range(len(arr_licitacoes)):
-			if arr_licitacoes[i] in list(df1.Licitações):
-				continue
-			for k in range(len(arr_lotes[i])):
-				df1 = df1.append({'Licitações':arr_licitacoes[i],'Lotes':arr_lotes[i][k]}, ignore_index=True)
-
-
-
+    			if arr_licitacoes[i] in list(df_licitacoes.Licitações):
+        			continue
+    			for k in range(len(arr_lotes[i])):
+        			df_licitacoes = df_licitacoes.append({'Licitações':arr_licitacoes[i],'Infos':arr_lotes[i][k]}, ignore_index=True)
+    
+		for i in range(len(arr_licitacoes)):
+    			if arr_licitacoes[i] in list(df_lotes.Licitações):
+        			continue
+    			for k in range(len(arr_infos[i])):
+        			df_lotes = df_lotes.append({'Licitações':arr_licitacoes[i],'Lotes':arr_infos[i][k]}, ignore_index=True)
+    
 		### CRIA AS COLUNAS NA TABELA_UNICA BASEADO NUME PRIMEIRA LEITURA DO PRIMEIRO LOTE
 
-		lote = read_excel('{}/{}/{}'.format(path, df1.Licitações[0], df1.Lotes[0]))
+		lote = read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[0], df_licitacoes.Infos[0]))
+		info = read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[0], 'Lotes', df_lotes.Lotes[0])) 
 
+		create_column(tabela_unica,'pdf_url')
+		create_column(tabela_unica,'classificacao')
+		create_column(tabela_unica,'fiscal')
+		create_column(tabela_unica,'valor_total')
+		create_column(tabela_unica,'numero_processo')
+		create_column(tabela_unica,'edital')
+		create_column(tabela_unica,'objeto')
+		create_column(tabela_unica,'contrato')
+		create_column(tabela_unica,'materiais_e_servicos')
+		create_column(tabela_unica,'demandante')
+		create_column(tabela_unica,'empresas')
 
-		for nm in df1.columns:
-			create_column(tabela_unica,nm)
-
-		for nm in lote.columns:
-			create_column(tabela_unica,nm)
-
+		create_column(df_materiais,'especificacoes')
+		create_column(df_materiais,'quantidade')
+		create_column(df_materiais,'valor_unitario')
+		create_column(df_materiais,'item')
+		create_column(df_materiais,'fornecedor')
+		create_column(df_materiais,'unidade')
+		create_column(df_materiais,'filename')
+	
 
 		### ABRE CADA LOTE DO FORMATO EXCEL E COPIA AS LINHAS DO LOTE PARA A TABELA UNICA
-
-		for i in range(len(df1)):
-			if df1.Licitações[i] in list(tabela_unica.Licitações):
+		
+		for i in range(len(df_licitacoes)):
+			if df_licitacoes.Licitações[i] in list(tabela_unica.numero_processo):
 				continue
-		lote = read_excel('{}/{}/{}'.format(path, df1.Licitações[i], df1.Lotes[i]))
-		for k in range(len(lote)):
-				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': None, 'fiscal': None, 'valor_total': None, 'numero_processo':df1.Licitações[i],'edital':df1.Lotes[i], 'objeto':lote.Mercadoria[k], 'contrato': None, 'materiais_e_servicos': None, 'demandante': None, 'empresas': [{'valor_estimado': None, 'nome_empresa': None, 'termo_aditivo': None, 'vigencia': None, 'valor_global': None, 'ata': None, 'descricao_empresa': None}]})
+			lote = read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
+			info = read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[i], 'Lotes', df_lotes.Lotes[i])) 
+			for k in range(len(lote)):
+				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]},ignore_index=True)
+			for j in range(len(info)):    
+				df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
 
 		records = json.loads(self.tabela_unica.T.to_json()).values()
-		self.collection.insert(records)
-
+		self.licitacoes.insert(records)
+		
+		records2 = json.loads(self.df_materiais.T.to_json()).values()
+		self.materiais.insert(records2)
 		print(tabela_unica)
