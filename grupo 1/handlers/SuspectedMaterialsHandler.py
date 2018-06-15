@@ -71,7 +71,6 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 				# Tratamento do preço do produto para float:
 				suspect_price_temp = re.sub("[^0-9,]", "", suspect_price)
 				suspect_price_float = float(suspect_price_temp.replace(',','.'))
-
 				# O arquivo results.json é aberto e cada linha é um dicionário.
 				# Popula-se a lista de preços já convertidos em float.
 				# Popula-se a lista de resultados com vários dicionários:
@@ -81,7 +80,10 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 					for line in file.readlines():
 						data = json.loads(line)
 						price_temp = re.sub("[^0-9,]", "", data['price'])
+						#print("price_temp:",price_temp)
 						price_float = float(price_temp.replace(',','.'))
+						#print("price_float:",price_float)
+
 						prices.append(price_float)
 						results.append(data)
 
