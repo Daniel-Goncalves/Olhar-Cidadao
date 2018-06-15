@@ -5,12 +5,12 @@ import ModalContact from '../ui/ModalContact';
 
 export default class FinalPage extends Component {
 
-    render() {
+    render(props) {
         return (
             <div>
                 <ModalAbout />
                 <ModalContact />
-                <Footer />
+                <Footer {...this.props} />
             </div>
         );
     }

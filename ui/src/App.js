@@ -3,16 +3,14 @@ import './index.css';
 import NavBar from './ui/NavBar';
 import FinalPage from './container/FinalPage';
 
-
-
-
 class App extends Component {
+
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar {...this.props}  />
         {this.props.children}
-        <FinalPage />
+        <FinalPage {...this.props} />
       </div>
         );
       }
