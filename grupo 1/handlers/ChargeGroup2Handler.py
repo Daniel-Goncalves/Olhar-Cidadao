@@ -120,9 +120,9 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 				continue
 			lote = yield ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
 			info = yield ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[i], 'Lotes', df_lotes.Lotes[i])) 
-			for k in range(len(lote)):
+			for k in range(len(lote.index)):
 				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]},ignore_index=True)
-			for j in range(len(info)):    
+			for j in range(len(info.index)):    
 				df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
 
 		records = json.loads(tabela_unica.T.to_json()).values()
