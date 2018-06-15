@@ -1,4 +1,4 @@
-'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import scrapy
@@ -19,4 +19,3 @@ class UnbScrapy(object):
     process.crawl(BuscapeSpider, self.product_name)
     process.crawl(ZoomSpider, self.product_name)
     process.start()
-'''

@@ -1,4 +1,4 @@
-'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import scrapy
@@ -46,4 +46,4 @@ class InitScrapy():
 
 		InitScrapy.crawl(BuscapeSpider,product_name)
 		InitScrapy.crawl(ZoomSpider,product_name)
-'''
+

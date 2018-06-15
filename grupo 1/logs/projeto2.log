@@ -1,2 +1,263 @@
 DEBUG:root:Started application on port 9000
-INFO:tornado.access:200 GET /charge_grupo2 (::1) 521.90ms
+ERROR:tornado.application:Uncaught exception GET /charge_grupo2 (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_grupo2', version='HTTP/1.1', remote_ip='::1', headers={'Host': 'localhost:9000', 'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/ChargeGroup2Handler.py", line 127, in get
+    df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/core/series.py", line 623, in __getitem__
+    result = self.index.get_value(self, key)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/core/indexes/base.py", line 2560, in get_value
+    tz=getattr(series.dtype, 'tz', None))
+  File "pandas/_libs/index.pyx", line 83, in pandas._libs.index.IndexEngine.get_value
+  File "pandas/_libs/index.pyx", line 91, in pandas._libs.index.IndexEngine.get_value
+  File "pandas/_libs/index.pyx", line 139, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 811, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 817, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 20
+ERROR:tornado.access:500 GET /charge_grupo2 (::1) 648.20ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /charge_grupo2 (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/charge_grupo2', version='HTTP/1.1', remote_ip='::1', headers={'Host': 'localhost:9000', 'Authorization': 'Bearer generate_password', 'Content-Type': 'application/json'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/ChargeGroup2Handler.py", line 128, in get
+    df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/core/series.py", line 623, in __getitem__
+    result = self.index.get_value(self, key)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/core/indexes/base.py", line 2560, in get_value
+    tz=getattr(series.dtype, 'tz', None))
+  File "pandas/_libs/index.pyx", line 83, in pandas._libs.index.IndexEngine.get_value
+  File "pandas/_libs/index.pyx", line 91, in pandas._libs.index.IndexEngine.get_value
+  File "pandas/_libs/index.pyx", line 139, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 811, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 817, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 20
+ERROR:tornado.access:500 GET /charge_grupo2 (::1) 696.37ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_suspected_materials (::1) 19.14ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.access:405 GET /search_suspected_materials (::1) 1.01ms
+INFO:tornado.access:200 POST /search_suspected_materials (::1) 35.75ms
+ERROR:tornado.application:Future <tornado.concurrent.Future object at 0x7fb273a61e80> exception was never retrieved: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1021, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/SuspectedMaterialsHandler.py", line 44, in import_from_db
+    yield SuspectedMaterialsHandler.validate_product(self,material)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/SuspectedMaterialsHandler.py", line 60, in validate_product
+    InitScrapy.get_data(product_name[:40])
+NameError: name 'InitScrapy' is not defined
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /search_suspected_materials (::1) 1.51ms
+INFO:scrapy.crawler:Overridden settings: {'FEED_URI': 'results.json'}
+INFO:scrapy.middleware:Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+INFO:scrapy.middleware:Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+INFO:scrapy.middleware:Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+INFO:scrapy.middleware:Enabled item pipelines:
+[]
+INFO:scrapy.core.engine:Spider opened
+INFO:scrapy.extensions.logstats:Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+DEBUG:scrapy.extensions.telnet:Telnet console listening on 127.0.0.1:6023
+DEBUG:scrapy.downloadermiddlewares.redirect:Redirecting (301) to <GET https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de> from <GET https://www.buscape.com.br/search/piso-direcional-em-material-pl%C3%A1stico-de>
+DEBUG:scrapy.core.engine:Crawled (200) <GET https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de> (referer: None)
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '699,00', 'product': 'Consul CFO4NAR Piso 4 Bocas Inox', 'store': 'Casas Bahia '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '729,99', 'product': 'Brastemp Clean BFO4N Piso 4 Bocas Inox', 'store': 'Americanas.com'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.286,00', 'product': 'Atlas U.Top Glass Piso 5 Bocas Preto', 'store': 'Carrefour '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.119,00', 'product': 'Consul CFO4VAR Piso 4 Bocas Inox', 'store': 'Shoptime'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '459,00', 'product': 'Atlas Mônaco Piso 4 Bocas Inox', 'store': 'Casas Bahia '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.044,99', 'product': 'Consul CFS5NAR Piso 5 Bocas Inox', 'store': 'Consul'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '809,90', 'product': 'Mueller Piacere Vetro Stile Piso 5 Bocas Preto', 'store': 'Submarino'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '799,00', 'product': 'Atlas U.Top Glass Piso 4 Bocas Preto', 'store': 'Carrefour '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.999,00', 'product': 'Atlas Top Gourmet Glass Piso 5 Bocas Preto', 'store': 'Extra.com.br'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '819,00', 'product': 'Atlas Fastcook Piso 5 Bocas Inox', 'store': 'Submarino'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.199,00', 'product': 'Brastemp Ative BLF08AS De Piso', 'store': 'CompraCerta'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '2.199,17', 'product': 'Electrolux LI10X De Piso', 'store': 'Fast Shop.com.br'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.539,00', 'product': 'Consul CFS5VAR Com Mesa de Vidro Piso 5 Bocas Inox', 'store': 'Carrefour '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '580,35', 'product': 'Itatiaia Waves Piso 4 Bocas Inox', 'store': 'Shoptime'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '299,00', 'product': 'Venax Gemini Piso 2 Bocas', 'store': 'Americanas.com'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.400,18', 'product': 'Brastemp Clean BFD4N Piso 4 Bocas Branco', 'store': 'Americanas.com'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.299,00', 'product': 'Brastemp Clean BFS6N Piso 6 Bocas Branco', 'store': 'Casas Bahia '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '417,05', 'product': 'Atlas Havana Piso 4 Bocas Inox', 'store': 'Shoptime'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '699,00', 'product': 'Brastemp Clean BFO4N Piso 4 Bocas Branco', 'store': 'Submarino'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.279,00', 'product': 'Brastemp Ative BLF08AB De Piso', 'store': 'Lojas Colombo'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '389,90', 'product': 'Atlas Mônaco Glass Piso 4 Bocas Branco', 'store': 'Carrefour '}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '1.238,99', 'product': 'Brastemp Ative! BFS5NBB Piso 5 Bocas Branco', 'store': 'Brastemp'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '4.449,00', 'product': 'Brastemp Ative! Smart Cook BFD5SAR Piso 5 Bocas Inox', 'store': 'PontoFrio.com'}
+DEBUG:scrapy.core.scraper:Scraped from <200 https://www.buscape.com.br/search/piso-direcional-em-material-plastico-de>
+{'origin': 'buscape', 'price': '324,90', 'product': 'Esmaltec Bali Piso 4 Bocas Branco', 'store': 'Submarino'}
+INFO:scrapy.core.engine:Closing spider (finished)
+INFO:scrapy.extensions.feedexport:Stored jsonlines feed (24 items) in: results.json
+INFO:scrapy.statscollectors:Dumping Scrapy stats:
+{'downloader/request_bytes': 551,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 142220,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/301': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2018, 6, 15, 2, 55, 46, 468260),
+ 'item_scraped_count': 24,
+ 'log_count/DEBUG': 27,
+ 'log_count/INFO': 8,
+ 'memusage/max': 82653184,
+ 'memusage/startup': 82653184,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 2,
+ 'scheduler/dequeued/memory': 2,
+ 'scheduler/enqueued': 2,
+ 'scheduler/enqueued/memory': 2,
+ 'start_time': datetime.datetime(2018, 6, 15, 2, 55, 44, 757433)}
+INFO:scrapy.core.engine:Spider closed (finished)
+INFO:scrapy.crawler:Overridden settings: {'FEED_URI': 'results.json'}
+INFO:scrapy.middleware:Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+INFO:scrapy.middleware:Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+INFO:scrapy.middleware:Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+INFO:scrapy.middleware:Enabled item pipelines:
+[]
+INFO:scrapy.core.engine:Spider opened
+INFO:scrapy.extensions.logstats:Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+DEBUG:scrapy.extensions.telnet:Telnet console listening on 127.0.0.1:6023
+DEBUG:scrapy.core.engine:Crawled (200) <GET https://www.zoom.com.br/search?q=piso-direcional-em-material-pl%C3%A1stico-de#produtos> (referer: None)
+INFO:scrapy.core.engine:Closing spider (finished)
+INFO:scrapy.statscollectors:Dumping Scrapy stats:
+{'downloader/request_bytes': 267,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 18309,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2018, 6, 15, 2, 55, 53, 755316),
+ 'log_count/DEBUG': 2,
+ 'log_count/INFO': 7,
+ 'memusage/max': 82767872,
+ 'memusage/startup': 82767872,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2018, 6, 15, 2, 55, 46, 634297)}
+INFO:scrapy.core.engine:Spider closed (finished)
+INFO:scrapy.crawler:Overridden settings: {'FEED_URI': 'results.json'}
+INFO:scrapy.middleware:Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+INFO:scrapy.middleware:Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+INFO:scrapy.middleware:Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+INFO:scrapy.middleware:Enabled item pipelines:
+[]
+INFO:scrapy.core.engine:Spider opened
+INFO:scrapy.extensions.logstats:Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+DEBUG:scrapy.extensions.telnet:Telnet console listening on 127.0.0.1:6023
+DEBUG:scrapy.downloadermiddlewares.redirect:Redirecting (301) to <GET https://www.buscape.com.br/search/faixa-antiderrapante-cor-preta-e-espess> from <GET https://www.buscape.com.br/search/faixa-antiderrapante,-cor-preta-e-espess>
