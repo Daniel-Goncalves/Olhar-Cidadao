@@ -4,7 +4,7 @@ import tornado.web
 from tornado import gen
 import sys, os, json, time, re
 import logging
-from handlers.InitScrapy import InitScrapy
+#from handlers.InitScrapy import InitScrapy
 
 from handlers.ConfigHandler import ConfigHandler
 

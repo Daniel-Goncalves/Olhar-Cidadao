@@ -1,3 +1,4 @@
+'''
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import scrapy
@@ -49,3 +50,4 @@ class ZoomSpider(scrapy.Spider):
         'store' : item[2][11:],
         'origin' : self.name
       }
+'''

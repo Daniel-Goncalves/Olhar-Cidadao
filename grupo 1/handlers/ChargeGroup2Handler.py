@@ -9,6 +9,7 @@ import requests
 import re
 import os
 import xlrd
+import copy
 
 
 class ChargeGroup2Handler(tornado.web.RequestHandler):
@@ -23,7 +24,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 		return pd.ExcelFile(file).parse(pd.ExcelFile(file).sheet_names[0])
 	
 	@gen.coroutine
-	def get():
+	def get(self):
 		#CAMINHO 
 		path="handlers/Excel"
 
@@ -38,11 +39,11 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 
 		#cria as colunas nos dataframes:
-		create_column(df_licitacoes,'Licitações')
-		create_column(df_licitacoes,'Lotes')
+		ChargeGroup2Handler.create_column(df_licitacoes,'Licitações')
+		ChargeGroup2Handler.create_column(df_licitacoes,'Lotes')
 
-		create_column(df_lotes,'Licitações')
-		create_column(df_lotes,'Lotes')
+		ChargeGroup2Handler.create_column(df_lotes,'Licitações')
+		ChargeGroup2Handler.create_column(df_lotes,'Lotes')
 
 
 		#le a pasta path e obtem o nome das pastas das licitações como uma string
@@ -88,28 +89,28 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
     
 		### CRIA AS COLUNAS NA TABELA_UNICA BASEADO NUME PRIMEIRA LEITURA DO PRIMEIRO LOTE
 
-		lote = read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[0], df_licitacoes.Infos[0]))
-		info = read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[0], 'Lotes', df_lotes.Lotes[0])) 
+		lote = ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[0], df_licitacoes.Infos[0]))
+		info = ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[0], 'Lotes', df_lotes.Lotes[0])) 
 
-		create_column(tabela_unica,'pdf_url')
-		create_column(tabela_unica,'classificacao')
-		create_column(tabela_unica,'fiscal')
-		create_column(tabela_unica,'valor_total')
-		create_column(tabela_unica,'numero_processo')
-		create_column(tabela_unica,'edital')
-		create_column(tabela_unica,'objeto')
-		create_column(tabela_unica,'contrato')
-		create_column(tabela_unica,'materiais_e_servicos')
-		create_column(tabela_unica,'demandante')
-		create_column(tabela_unica,'empresas')
+		ChargeGroup2Handler.create_column(tabela_unica,'pdf_url')
+		ChargeGroup2Handler.create_column(tabela_unica,'classificacao')
+		ChargeGroup2Handler.create_column(tabela_unica,'fiscal')
+		ChargeGroup2Handler.create_column(tabela_unica,'valor_total')
+		ChargeGroup2Handler.create_column(tabela_unica,'numero_processo')
+		ChargeGroup2Handler.create_column(tabela_unica,'edital')
+		ChargeGroup2Handler.create_column(tabela_unica,'objeto')
+		ChargeGroup2Handler.create_column(tabela_unica,'contrato')
+		ChargeGroup2Handler.create_column(tabela_unica,'materiais_e_servicos')
+		ChargeGroup2Handler.create_column(tabela_unica,'demandante')
+		ChargeGroup2Handler.create_column(tabela_unica,'empresas')
 
-		create_column(df_materiais,'especificacoes')
-		create_column(df_materiais,'quantidade')
-		create_column(df_materiais,'valor_unitario')
-		create_column(df_materiais,'item')
-		create_column(df_materiais,'fornecedor')
-		create_column(df_materiais,'unidade')
-		create_column(df_materiais,'filename')
+		ChargeGroup2Handler.create_column(df_materiais,'especificacoes')
+		ChargeGroup2Handler.create_column(df_materiais,'quantidade')
+		ChargeGroup2Handler.create_column(df_materiais,'valor_unitario')
+		ChargeGroup2Handler.create_column(df_materiais,'item')
+		ChargeGroup2Handler.create_column(df_materiais,'fornecedor')
+		ChargeGroup2Handler.create_column(df_materiais,'unidade')
+		ChargeGroup2Handler.create_column(df_materiais,'filename')
 	
 
 		### ABRE CADA LOTE DO FORMATO EXCEL E COPIA AS LINHAS DO LOTE PARA A TABELA UNICA
@@ -117,16 +118,22 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 		for i in range(len(df_licitacoes)):
 			if df_licitacoes.Licitações[i] in list(tabela_unica.numero_processo):
 				continue
-			lote = read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
-			info = read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[i], 'Lotes', df_lotes.Lotes[i])) 
+			lote = yield ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
+			info = yield ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[i], 'Lotes', df_lotes.Lotes[i])) 
 			for k in range(len(lote)):
 				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]},ignore_index=True)
 			for j in range(len(info)):    
 				df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
 
-		records = json.loads(self.tabela_unica.T.to_json()).values()
-		self.licitacoes.insert(records)
+		records = json.loads(tabela_unica.T.to_json()).values()
+		self.application.mongodb.licitacoes.insert(records)
 		
-		records2 = json.loads(self.df_materiais.T.to_json()).values()
-		self.materiais.insert(records2)
+		records2 = json.loads(df_materiais.T.to_json()).values()
+		self.application.mongodb.materiais.insert(records2)
 		print(tabela_unica)
+
+		response = {"status": "function done"}
+		self.set_status(200) #http 200 ok
+		self.write(response)
+		self.finish()
+		return
