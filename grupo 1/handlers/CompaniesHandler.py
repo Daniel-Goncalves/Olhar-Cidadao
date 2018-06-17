@@ -55,10 +55,10 @@ class CompaniesHandler(tornado.web.RequestHandler):
 				# Company has already won any process
 				if company['nome_empresa'] in winner_companies:
 					winner_companies[company['nome_empresa']]['number_of_wins'] += 1
-					winner_companies[company['nome_empresa']]['valor_global'] += company['valor_global']
+					winner_companies[company['nome_empresa']]['total_value'] += CompaniesHandler.convert_one_value(company['valor_global'])
 					winner_companies[company['nome_empresa']]['wonBiddings'].append(licit)
 				else:
-					winner_companies[company['nome_empresa']] = {"number_of_wins":1,"total_value":company['valor_global'],"wonBiddings":[licit]}
+					winner_companies[company['nome_empresa']] = {"number_of_wins":1,"total_value":CompaniesHandler.convert_one_value(company['valor_global']),"wonBiddings":[licit]}
 		
 		return winner_companies
 
@@ -134,6 +134,7 @@ class CompaniesHandler(tornado.web.RequestHandler):
 		return dict
 
 	def convert_one_value(value):
+		value = str(value)
 		aux_value = re.sub("[^0-9,]", "", value)
 		converted_value = float(aux_value.replace(",","."))
 		return converted_value
@@ -165,6 +166,7 @@ class CompaniesHandler(tornado.web.RequestHandler):
 			element = cursor.next_object()
 			companies = element['empresas']
 			licitacao = element['objeto']
+			numero_processo = element['numero_processo']
 
 			for company in companies:
 				# Company has already won any process
@@ -173,10 +175,10 @@ class CompaniesHandler(tornado.web.RequestHandler):
 				end = date.split("-")[1][1:].split("/")
 				date_range = Range(start=str(datetime(int(start[2]), int(start[1]), int(start[0]) ) ), end=str(datetime(int(end[2]), int(end[1]), int(end[0]) )))
 
-				json = {"licitacao":licitacao,"daterange":date_range}
+				json = {"licitacao":licitacao,"daterange":date_range,"numero_processo":numero_processo}
 
 				if company['nome_empresa'] in dateranges:
-					dateranges[company['nome_empresa']].append([json])
+					dateranges[company['nome_empresa']].append(json)
 				else:
 					dateranges[company['nome_empresa']] = [json]
 
@@ -200,13 +202,15 @@ class CompaniesHandler(tornado.web.RequestHandler):
 			# List of dateranges for a company
 			for i in range(0,len(date_ranges[key])):
 				licit1 = date_ranges[key][i]['licitacao']
+				numero_processo1 = date_ranges[key][i]['numero_processo']
 				range1 = date_ranges[key][i]['daterange']
 				for j in range(i+1,len(date_ranges[key])):
 					licit2 =  date_ranges[key][j]['licitacao']
+					numero_processo2 = date_ranges[key][j]['numero_processo']
 					range2 = date_ranges[key][j]['daterange']
 					overlaped_days = CompaniesHandler.dates_overlap_days(range1,range2)
 					if overlaped_days != 0:
-						overlaping_dates.append({"company":key,"Licitacao1":licit1,"Range1":range1,"Licitacao2":licit2,"Range2":range2,"Overlaped days":overlaped_days})
+						overlaping_dates.append({"company":key,"Licitacao1":{"nome":licit1,"numero_processo":numero_processo1,"Range":range1},"Licitacao2":{"nome":licit2,"numero_processo":numero_processo2,"Range":range2},"Overlaped days":overlaped_days})
 
 		return overlaping_dates
 
