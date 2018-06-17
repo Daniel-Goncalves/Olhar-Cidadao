@@ -66,27 +66,27 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 		arr_lotes3 = copy.deepcopy(arr_lotes)
 
 		for k in range(len(arr_lotes3)):
-    			for l in range(len(arr_lotes3[k])):
-        			if arr_lotes3[k][l][0] == '.':
-            				arr_lotes[k].remove(arr_lotes[k][l])
-            				break
-        			else:
-            				continue 
+				for l in range(len(arr_lotes3[k])):
+					if arr_lotes3[k][l][0] == '.':
+							arr_lotes[k].remove(arr_lotes[k][l])
+							break
+					else:
+							continue 
 		### GRAVA NO DATAFRAME1 OS NOMES DE LICITAÇÕES E LOTES
 
 
 		for i in range(len(arr_licitacoes)):
-    			if arr_licitacoes[i] in list(df_licitacoes.Licitações):
-        			continue
-    			for k in range(len(arr_lotes[i])):
-        			df_licitacoes = df_licitacoes.append({'Licitações':arr_licitacoes[i],'Infos':arr_lotes[i][k]}, ignore_index=True)
-    
+				if arr_licitacoes[i] in list(df_licitacoes.Licitações):
+					continue
+				for k in range(len(arr_lotes[i])):
+					df_licitacoes = df_licitacoes.append({'Licitações':arr_licitacoes[i],'Infos':arr_lotes[i][k]}, ignore_index=True)
+	
 		for i in range(len(arr_licitacoes)):
-    			if arr_licitacoes[i] in list(df_lotes.Licitações):
-        			continue
-    			for k in range(len(arr_infos[i])):
-        			df_lotes = df_lotes.append({'Licitações':arr_licitacoes[i],'Lotes':arr_infos[i][k]}, ignore_index=True)
-    
+				if arr_licitacoes[i] in list(df_lotes.Licitações):
+					continue
+				for k in range(len(arr_infos[i])):
+					df_lotes = df_lotes.append({'Licitações':arr_licitacoes[i],'Lotes':arr_infos[i][k]}, ignore_index=True)
+	
 		### CRIA AS COLUNAS NA TABELA_UNICA BASEADO NUME PRIMEIRA LEITURA DO PRIMEIRO LOTE
 
 		lote = ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[0], df_licitacoes.Infos[0]))
@@ -119,19 +119,29 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 			if df_licitacoes.Licitações[i] in list(tabela_unica.numero_processo):
 				continue
 			lote = yield ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
-			info = yield ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_lotes.Licitações[i], 'Lotes', df_lotes.Lotes[i])) 
-
 			for k in range(len(lote.index)):
-				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]},ignore_index=True)
-			for j in range(len(info.index)):    
-				df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[j], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[j], 'unidade': None, 'filename':None}, ignore_index=True)
+				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]}, ignore_index=True)
+				info = yield ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_licitacoes.Licitações[i], 'Lotes', arr_infos[i][k])) 
+				for j in range(len(info.index)):
+						df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[k], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[k], 'unidade': None, 'numero_processo':df_licitacoes.Licitações[i]}, ignore_index=True)
 
-		records = json.loads(tabela_unica.T.to_json()).values()
-		#self.application.mongodb.licitacoes.insert(records)
+		
 		
 		records2 = json.loads(df_materiais.T.to_json()).values()
-		#self.application.mongodb.materiais.insert(records2)
-		print(tabela_unica)
+		#self.application.mongodb.materials.insert(records2)
+		#print(tabela_unica)
+
+		groups = tabela_unica.groupby("numero_processo")
+		for processo, group in groups:
+			arr_empresas = []
+			for index, row in group.iterrows():
+				#rint(x)
+				arr_empresas.append(row['empresas'][0])
+
+			# Finalizada 1 licitacao
+			bidding = {'instituicao':"Barreiras-BA",'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': group['fiscal'].iloc[0], 'valor_total': group['valor_total'].iloc[0], 'numero_processo':group['numero_processo'].iloc[0],'edital':group['edital'].iloc[0], 'objeto':group['objeto'].iloc[0], 'contrato': None, 'materiais_e_servicos': None, 'demandante': None, 'empresas': arr_empresas};
+			#self.application.mongodb.licitacoes.insert(bidding)			
+
 
 		response = {"status": "function done"}
 		self.set_status(200) #http 200 ok

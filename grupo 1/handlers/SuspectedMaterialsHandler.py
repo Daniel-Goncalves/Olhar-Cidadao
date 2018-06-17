@@ -51,11 +51,13 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 		product_name = product['especificacoes']
 		suspect_price = product['valor_unitario']
 		suspect_company = product['fornecedor']
+		numero_processo = product['numero_processo']
 
 		# O objeto da classe Scrapy é criado com os dados do produto. Será considerado um máximo de 40 caracteres.
 		# A função get_data() buscará preços na internet e retornará o resultado no arquivo results.json:
 
-		if product_name != None:#"Pé Conico Cromado 15cm":
+		count = yield self.application.mongodb.already_searched_products.find({"material":product_name}).count()
+		if product_name != None and count <= 0:#"Pé Conico Cromado 15cm":
 
 			InitScrapy.get_data(product_name[:40])
 
@@ -99,7 +101,7 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 				# Se a flag de corrupção estiver setada como verdadeira:
 				if flag_corruption:
 					# Um dicionário com a data atual e os dados do produto suspeito são armazenados num dicionário:
-					suspect_data = { "more_expensive_found_product":{"price":results[index]['price'],"origin":results[index]['origin'],"store":results[index]['store'],"product":results[index]['product']},"date" : time.strftime("%x"), "suspected_product" : product_name,"price_in_bidding":suspect_price_float , "suspect_company" : suspect_company }
+					suspect_data = { "more_expensive_found_product":{"price":results[index]['price'],"origin":results[index]['origin'],"store":results[index]['store'],"product":results[index]['product']},"date" : time.strftime("%x"), "suspected_product" : product_name,"price_in_bidding":suspect_price_float , "suspect_company" : suspect_company ,"numero_processo":numero_processo}
 
 					# O dicionário criado acima será mesclado com cada dicionário da lista de resultados:
 					for result in results:
@@ -110,5 +112,7 @@ class SuspectedMaterialsHandler(tornado.web.RequestHandler):
 					# Os dados serão inseridos numa nova collection do BD:
 					# Conexão com o BD é feita:
 					self.application.mongodb.suspected_materials.insert(suspect_data)
+				self.application.mongodb.already_searched_products.insert({"material":product_name})
 			except:
+				self.application.mongodb.already_searched_products.insert({"material":product_name})
 				print("Error in some point of material treatment...",sys.exc_info()[0])

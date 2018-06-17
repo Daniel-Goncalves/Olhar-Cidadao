@@ -40,7 +40,7 @@ def create_web_server():
         (r"/get_licitacoes", LicitacoesHandler),
         (r"/get_instituicao", InstituicoesHandler),
         (r"/get_suspects", SuspectsHandler),
-	(r"/get_suspected_materials", MaterialsSuspectedHandler),
+		(r"/get_suspected_materials", MaterialsSuspectedHandler),
         (r"/search_suspected_materials",SuspectedMaterialsHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})

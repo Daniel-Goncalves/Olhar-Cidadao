@@ -53,7 +53,7 @@ class PDFHandler(tornado.web.RequestHandler):
 		while (yield cursor.fetch_next):
 			element = cursor.next_object()
 			url = element['pdf_url']
-			filename = element['objeto']
+			filename = element['numero_processo'].replace("/","")
 			PDFHandler.download_pdf(url,filename)
 
 	@gen.coroutine
@@ -178,7 +178,7 @@ class PDFHandler(tornado.web.RequestHandler):
 		for i,(index, row) in enumerate(dfs.iterrows()):  # go through all rows
 			if not (first_page and i == 0):		# If not columns names
 
-				json = {"item":row[indexes_list[0]],"quantidade":row[indexes_list[1]],"unidade":row[indexes_list[2]],"especificacoes":row[indexes_list[3]],"valor_unitario":row[indexes_list[4]],"fornecedor":row[indexes_list[5]],"filename":filename}
+				json = {"item":row[indexes_list[0]],"quantidade":row[indexes_list[1]],"unidade":row[indexes_list[2]],"especificacoes":row[indexes_list[3]],"valor_unitario":row[indexes_list[4]],"fornecedor":row[indexes_list[5]],"numero_processo":filename}
 				objects.append(json)
 		return objects
 
@@ -240,7 +240,7 @@ class PDFHandler(tornado.web.RequestHandler):
 
 			#materials_collection.insert(all_table_objects)
 			for record in all_table_objects:
-				materials_collection.update({'especificacoes':record['especificacoes'],'filename':record['filename'],'item':record['item']},record,upsert=True)
+				materials_collection.update({'especificacoes':record['especificacoes'],'numero_processo':record['numero_processo'],'item':record['item']},record,upsert=True)
 			
 			# Command to delete duplicated materials
 			# db.materials.find({},{especificacoes:1,filename:1,item:1}).sort({_id:1}).forEach(function(doc){db.materials.remove({_id:{$gt:doc._id},especificacoes:doc.especificacoes,filename:doc.filename,item:doc.item})})
