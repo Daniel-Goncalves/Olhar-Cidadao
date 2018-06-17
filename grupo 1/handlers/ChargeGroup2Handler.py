@@ -119,16 +119,15 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 			if df_licitacoes.Licitações[i] in list(tabela_unica.numero_processo):
 				continue
 			lote = yield ChargeGroup2Handler.read_excel('{}/{}/{}'.format(path, df_licitacoes.Licitações[i], df_licitacoes.Infos[i]))
+
 			for k in range(len(lote.index)):
 				tabela_unica = tabela_unica.append({'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': lote.pregoeiro[k], 'valor_total': 'R$ {}'.format(lote.ValorArrematado[k]), 'numero_processo':df_licitacoes.Licitações[i],'edital':lote.edital[k], 'objeto':lote.Descricao[k], 'contrato': None, 'materiais_e_servicos': 'SRP 632/2016', 'demandante': 'DISER', 'empresas': [{'valor_estimado': 'R$ {}'.format(lote.ValorUnitário[k]), 'nome_empresa': lote.Nome_Fantasia[k], 'termo_aditivo': None, 'vigencia': lote.vigencia[k], 'valor_global': 'R$ {}'.format(lote.ValorArrematado[k]), 'ata': None, 'descricao_empresa': lote.Atividade_Economica[k]}]}, ignore_index=True)
 				info = yield ChargeGroup2Handler.read_excel('{}/{}/{}/{}'.format(path, df_licitacoes.Licitações[i], 'Lotes', arr_infos[i][k])) 
 				for j in range(len(info.index)):
 						df_materiais = df_materiais.append({'especificacoes': info.Descrição[j], 'quantidade': info.Quantidade[j], 'valor_unitario': lote.ValorUnitário[k], 'item': info.Item[j], 'fornecedor': lote.Nome_Fantasia[k], 'unidade': None, 'numero_processo':df_licitacoes.Licitações[i]}, ignore_index=True)
-
-		
-		
+				
 		records2 = json.loads(df_materiais.T.to_json()).values()
-		#self.application.mongodb.materials.insert(records2)
+		self.application.mongodb.materials.insert(records2)
 		#print(tabela_unica)
 
 		groups = tabela_unica.groupby("numero_processo")
@@ -140,7 +139,7 @@ class ChargeGroup2Handler(tornado.web.RequestHandler):
 
 			# Finalizada 1 licitacao
 			bidding = {'instituicao':"Barreiras-BA",'pdf_url': None, 'classificacao': 'ATAS COM VIGÊNCIA EXPIRADA', 'fiscal': group['fiscal'].iloc[0], 'valor_total': group['valor_total'].iloc[0], 'numero_processo':group['numero_processo'].iloc[0],'edital':group['edital'].iloc[0], 'objeto':group['objeto'].iloc[0], 'contrato': None, 'materiais_e_servicos': None, 'demandante': None, 'empresas': arr_empresas};
-			#self.application.mongodb.licitacoes.insert(bidding)			
+			self.application.mongodb.licitacoes.insert(bidding)			
 
 
 		response = {"status": "function done"}
