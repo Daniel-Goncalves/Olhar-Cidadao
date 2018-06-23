@@ -4,9 +4,10 @@ import logging
 
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 
 
-class SuspectsHandler(tornado.web.RequestHandler):
+class SuspectsHandler(CorsHandler):
 
 
 	@gen.coroutine

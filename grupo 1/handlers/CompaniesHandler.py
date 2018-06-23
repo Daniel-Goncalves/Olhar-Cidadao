@@ -7,9 +7,10 @@ from datetime import datetime
 from collections import namedtuple
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 
 
-class CompaniesHandler(tornado.web.RequestHandler):
+class CompaniesHandler(CorsHandler):
 
 
 	@gen.coroutine

@@ -7,9 +7,10 @@ import logging
 from handlers.InitScrapy import InitScrapy
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 
 
-class SuspectedMaterialsHandler(tornado.web.RequestHandler):
+class SuspectedMaterialsHandler(CorsHandler):
 
 	@gen.coroutine
 	def post(self):

@@ -5,9 +5,10 @@ import sys
 import json
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 
 
-class MaterialsSuspectedHandler(tornado.web.RequestHandler):
+class MaterialsSuspectedHandler(CorsHandler):
 
 		
 	@gen.coroutine

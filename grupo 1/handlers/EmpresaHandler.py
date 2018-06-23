@@ -6,9 +6,10 @@ import json
 
 from handlers.ConfigHandler import ConfigHandler
 from handlers.ProcessosHandler import ProcessosHandler 
+from handlers.CorsHandler import CorsHandler
 
 
-class EmpresaHandler(tornado.web.RequestHandler):
+class EmpresaHandler(CorsHandler):
 
 		
 	@gen.coroutine

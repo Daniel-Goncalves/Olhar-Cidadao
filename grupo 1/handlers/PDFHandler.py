@@ -16,9 +16,10 @@ import pycurl
 
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 
 
-class PDFHandler(tornado.web.RequestHandler):
+class PDFHandler(CorsHandler):
 
 	@gen.coroutine
 	def download_pdf(redirect_link,file_name):

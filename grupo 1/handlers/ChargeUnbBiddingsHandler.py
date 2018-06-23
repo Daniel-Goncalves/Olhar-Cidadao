@@ -9,9 +9,10 @@ import requests
 import re
 
 from handlers.ConfigHandler import ConfigHandler
+from handlers.CorsHandler import CorsHandler
 from handlers.PDFHandler import PDFHandler
 
-class ChargeUnbBiddings(tornado.web.RequestHandler):
+class ChargeUnbBiddings(CorsHandler):
 
 	@gen.coroutine
 	def get_html_table(self):

@@ -11,8 +11,10 @@ import os
 import xlrd
 import copy
 
+from handlers.CorsHandler import CorsHandler
 
-class ChargeGroup2Handler(tornado.web.RequestHandler):
+
+class ChargeGroup2Handler(CorsHandler):
 
 	@gen.coroutine
 	def create_column(df,nm):
