@@ -18,24 +18,24 @@ const NavBar = (props) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           {pathName ? (
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-ite">
-                <a class="nav-link js-scroll-trigger text-white" href="#licitacoes">Resumo</a>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-ite">
+                <a className="nav-link js-scroll-trigger text-white" href="#resume">Resumo</a>
               </li>
-              <li class="nav-ite">
-                <a class="nav-link js-scroll-trigger text-white" href="#licitacoes">Licitações</a>
+              <li className="nav-ite">
+                <a className="nav-link js-scroll-trigger text-white" href="#licitacoes">Licitações</a>
               </li>
-              <li class="nav-ite">
-                <a class="nav-link js-scroll-trigger text-white" href="#comparation">Comparações</a>
+              <li className="nav-ite">
+                <a className="nav-link js-scroll-trigger text-white" href="#comparation">Comparações</a>
               </li>
               <li className="nav-ite">
                 <Link to='/api' className="nav-link js-scroll-trigger text-white">API</Link>
               </li>
-              <li class="nav-ite">
-                <a class="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
+              <li className="nav-ite">
+                <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#contact">Contato</a>
+              <li className="nav-item">
+                <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#contact">Contato</a>
               </li>
             </ul>
           ) : (

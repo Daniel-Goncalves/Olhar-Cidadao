@@ -12,4 +12,9 @@ body, html {
 }
 #searchBar {
   padding-top: 16%;
+  padding-bottom: 16%;
+}
+
+.clearfix {
+  width: 700px;
 }
