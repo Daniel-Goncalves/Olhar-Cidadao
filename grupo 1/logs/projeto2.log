@@ -1,0 +1,265 @@
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 288.15ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 225.29ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 134.95ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_instituicoes (::1) 3.51ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_instituicoes (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_instituicoes', version='HTTP/1.1', remote_ip='::1', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password', 'Host': 'localhost:9000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/lib/python3.5/types.py", line 243, in wrapped
+    coro = func(*args, **kwargs)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/InstituicaoHandler.py", line 16, in get
+    return cursor.next_object()
+AttributeError: 'Future' object has no attribute 'next_object'
+ERROR:tornado.access:500 GET /get_instituicoes (::1) 13.50ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_instituicoes (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_instituicoes', version='HTTP/1.1', remote_ip='::1', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password', 'Host': 'localhost:9000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 285, in wrapper
+    yielded = next(result)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/InstituicaoHandler.py", line 16, in get
+    yield cursor.fetch_next
+AttributeError: 'Future' object has no attribute 'fetch_next'
+ERROR:tornado.access:500 GET /get_instituicoes (::1) 5.29ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_instituicoes (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_instituicoes', version='HTTP/1.1', remote_ip='::1', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password', 'Host': 'localhost:9000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 285, in wrapper
+    yielded = next(result)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/InstituicaoHandler.py", line 16, in get
+    finished = yield cursor.fetch_next
+AttributeError: 'Future' object has no attribute 'fetch_next'
+ERROR:tornado.access:500 GET /get_instituicoes (::1) 6.13ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_instituicoes (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_instituicoes', version='HTTP/1.1', remote_ip='::1', headers={'Host': 'localhost:9000', 'Content-Type': 'application/json', 'Authorization': 'Bearer generate_password'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 285, in wrapper
+    yielded = next(result)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/InstituicaoHandler.py", line 16, in get
+    while (yield cursor.fetch_next):
+AttributeError: 'Future' object has no attribute 'fetch_next'
+ERROR:tornado.access:500 GET /get_instituicoes (::1) 14.99ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_instituicoes (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_instituicoes', version='HTTP/1.1', remote_ip='::1', headers={'Host': 'localhost:9000', 'Authorization': 'Bearer generate_password', 'Content-Type': 'application/json'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/InstituicaoHandler.py", line 17, in get
+    while (yield cursor.fetch_next):
+AttributeError: 'list' object has no attribute 'fetch_next'
+ERROR:tornado.access:500 GET /get_instituicoes (::1) 4.97ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_instituicoes (::1) 2.41ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_instituicoes (::1) 2.41ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_instituicoes (::1) 12.22ms
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:304 GET /get_instituicoes (::1) 3.49ms
+WARNING:tornado.access:404 GET /favicon.ico (::1) 1.05ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 2.74ms
+ERROR:tornado.application:Uncaught exception POST /get_instituicao (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='POST', uri='/get_instituicao', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/vegeta/.local/lib/python3.6/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/vegeta/.local/lib/python3.6/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/home/vegeta/.local/lib/python3.6/site-packages/tornado/gen.py", line 315, in wrapper
+    yielded = next(result)
+  File "/home/vegeta/Documentos/Projeto_Transversal2/grupo 1/handlers/InstituicoesHandler.py", line 17, in post
+    post_data = tornado.escape.json_decode(self.request.body)
+  File "/home/vegeta/.local/lib/python3.6/site-packages/tornado/escape.py", line 86, in json_decode
+    return json.loads(to_basestring(value))
+  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.6/json/decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+ERROR:tornado.access:500 POST /get_instituicao (::1) 40.16ms
+INFO:tornado.access:200 GET /get_winner_companies (::1) 362.58ms
+WARNING:tornado.access:405 GET /get_instituicao (::1) 1.11ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:304 GET /get_instituicoes (::1) 3.67ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 2.56ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.40ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.09ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.06ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.37ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.87ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.22ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.70ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 3.04ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.62ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 10.86ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.93ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 17.19ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.48ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 5.78ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.48ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.63ms
+INFO:tornado.access:304 GET /get_instituicoes (::1) 12.01ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 18.74ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.60ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.07ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.18ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.17ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.75ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.52ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.30ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 18.02ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.51ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.23ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.04ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 0.96ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.94ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.28ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 19.14ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.69ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.72ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 15.13ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.60ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 21.97ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 25.46ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.62ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.69ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.21ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 17.22ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.28ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.22ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 17.30ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.13ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 5.37ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.75ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 25.24ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.40ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.33ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.56ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.62ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.56ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.88ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.56ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.82ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 0.99ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.44ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.15ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 21.21ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 17.39ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.43ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.55ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.38ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.15ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.30ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.34ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.43ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.48ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 14.26ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.84ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.32ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 0.96ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.98ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.68ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 14.89ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.22ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 19.37ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 24.69ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 20.11ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 19.89ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.11ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 14.86ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 8.43ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.51ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 10.06ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.56ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.03ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.94ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 12.16ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 9.55ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 14.09ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.45ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.03ms
+INFO:tornado.access:204 OPTIONS /get_instituicao (::1) 1.04ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 33.14ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 46.07ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 22.92ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.17ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 11.59ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 13.17ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 7.12ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.53ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 16.19ms
+INFO:tornado.access:200 POST /get_instituicao (::1) 6.62ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception GET /get_winner_companies (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='GET', uri='/get_winner_companies', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/web.py", line 1543, in _execute
+    result = yield result
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1107, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/home/chaves/Projeto_Transversal2/grupo 1/handlers/CompaniesHandler.py", line 20, in get
+    companies_that_won_in_multiple_biddings = yield CompaniesHandler.get_company_winning_in_all_biddings(self)
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1099, in run
+    value = future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 274, in result
+    raise self._exception
+  File "/home/chaves/.local/lib/python3.5/site-packages/tornado/gen.py", line 1113, in run
+    yielded = self.gen.send(value)
+  File "/home/chaves/Projeto_Transversal2/grupo 1/handlers/CompaniesHandler.py", line 74, in get_company_winning_in_all_biddings
+    for key,value in list(winner_companies.items() ):
+AttributeError: 'list' object has no attribute 'items'
+ERROR:tornado.access:500 GET /get_winner_companies (::1) 114.48ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (::1) 92.44ms

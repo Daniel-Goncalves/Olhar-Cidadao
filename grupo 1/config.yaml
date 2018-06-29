@@ -1,0 +1,29 @@
+database:
+  mongodb:
+    user: projeto2        # Not used
+    password: nopassword  # Not used
+    address: localhost
+    db_name: projeto2
+    min_pool_size: 5
+logging:
+  level: DEBUG
+  filename: logs/projeto2.log
+biddings:
+  unb_biddings_url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRjWfASCqM7XO-Frzf-DKIwOQF_cSd_LMKCh-DsgmDFAM2jPzxvbgFQbxHT9odmIfBhFsDzShhqlXtT/pubhtml
+  ocrwebserviceURL: http://www.ocrwebservice.com/restservices/processDocument?gettext=true&language=brazilian&outputformat=xlsx&pagerange=1
+  # Arrays to match columns when treating PDFs
+  item_names_array: [item]
+  qtd_names_array: [qtd]
+  und_names_array: [und,unidade]
+  especificacoes_names_array: [especificacoes,especificacões,especificações,descrição,descricao]
+  valor_unit_names_array: [valor unit.,valor unit,unitário,valor,unit.,"valor\nunit."]
+  fornecedor_names_array: ["fornecedor"]
+
+treatment:
+  maximum_unit_value: 5000 # Maximum allowed unitary value for a product. If it's above it probably it was incorrectly converted from the PDF
+  maximum_number_of_wins_same_bidding: 0  # Used in function that returns companies that won above some number of process in the same bidding
+  maximum_total_value_allowed: 500000     # Used with maximum_number_of_wins_same_bidding to select companies that have won more than 1 proccess in the same bidding or in all biddings with total value above threshold
+  maximum_number_of_wins_for_a_company_in_all_biddings: 0
+
+  maximum_value_allowed_for_two_wins: 100000      # Trigger for check if a company that was won 2 biddings is a small company based in the biddings values
+  maximum_value_allowed_for_three_wins: 300000    # Trigger for check if a company that was won 3 biddings is a small company based in the biddings values
