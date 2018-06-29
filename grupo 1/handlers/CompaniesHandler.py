@@ -16,7 +16,8 @@ class CompaniesHandler(CorsHandler):
 	@gen.coroutine
 	def get(self):
 
-		winner_companies = yield CompaniesHandler.get_winner_companies_as_list(self)
+		#winner_companies = yield CompaniesHandler.get_winner_companies_as_list(self)
+		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 		companies_that_won_in_multiple_biddings = yield CompaniesHandler.get_company_winning_in_all_biddings(self)
 		companies_that_won_in_multiple_biddings_with_high_value = yield CompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self)
 		companies_that_won_in_the_same_bidding = yield CompaniesHandler.get_company_winning_in_same_bidding(self)
@@ -25,16 +26,61 @@ class CompaniesHandler(CorsHandler):
 		companies_that_won_in_same_period = yield CompaniesHandler.company_winning_more_than_one_bidding_in_the_same_period(self)
 		companies_that_won_multiple_times_considering_total_values = yield CompaniesHandler.get_company_winning_considering_company_size(self)
 
+		
+		for key in companies_that_won_in_multiple_biddings:
+			winner_companies[key]['won_process_in_multiple_biddings'] = companies_that_won_in_multiple_biddings[key]
+		for key in companies_that_won_in_multiple_biddings_with_high_value:
+			winner_companies[key]['won_process_in_multiple_biddings_with_high_value'] = companies_that_won_in_multiple_biddings_with_high_value[key]
+		for element in companies_that_won_in_the_same_bidding:
+			licit = element['licitacao']
+			for key in element['multiple_win_companies']:
+				json = element['multiple_win_companies'][key]
+				json['licitacao'] = licit
+				if "won_process_in_the_same_bidding" not in winner_companies[key]:
+					winner_companies[key]['won_process_in_the_same_bidding'] = [json]
+				else:
+					winner_companies[key]['won_process_in_the_same_bidding'].append(json)
+		for element in companies_that_won_in_the_same_bidding_with_high_value:
+			licit = element['licitacao']
+			for key in element['multiple_win_companies']:
+				json = element['multiple_win_companies'][key]
+				json['licitacao'] = licit
+				if "won_process_in_the_same_bidding_with_high_value" not in winner_companies[key]:
+					winner_companies[key]['won_process_in_the_same_bidding_with_high_value'] = [json]
+				else:
+					winner_companies[key]['won_process_in_the_same_bidding_with_high_value'].append(json)
+		
+		for element in companies_that_won_in_same_period:
+			key = element['company']
+			json = element
+			del json['company']
+			if "biddings_won_in_the_same_period" not in winner_companies[key]:
+				winner_companies[key]['biddings_won_in_the_same_period'] = [json]
+			else:
+				winner_companies[key]['biddings_won_in_the_same_period'].append(json)
+		
+		for key in companies_that_won_multiple_times_considering_total_values:
+			winner_companies[key]['multiple_wins_considering_high_value'] = companies_that_won_multiple_times_considering_total_values[key]
+
+
+		winner_companies_array = []
+		for key in winner_companies:
+			json = winner_companies[key]
+			json['nome_empresa'] = key
+			winner_companies_array.append(json)
+
+		
+
 		CompaniesHandler.save_suspectious(self,companies_that_won_in_multiple_biddings,companies_that_won_in_multiple_biddings_with_high_value,companies_that_won_in_the_same_bidding,companies_that_won_in_the_same_bidding_with_high_value,companies_that_won_in_same_period,companies_that_won_multiple_times_considering_total_values)
 
 		response = {
-			'Winner companies': winner_companies,
-			'Companies that won multiple times in all bidding':companies_that_won_in_multiple_biddings,
-			'Companies that won in multiple biddings with high value':companies_that_won_in_multiple_biddings_with_high_value,
-			'Companies that won multiple times in the same bidding':companies_that_won_in_the_same_bidding,
-			'Companies that won multiple times in the same bidding with high value':companies_that_won_in_the_same_bidding_with_high_value,
-			'Companies that won multiple times in the same period':companies_that_won_in_same_period,
-			'Companies that won multiple times considering company size':companies_that_won_multiple_times_considering_total_values
+			'Winner companies': winner_companies_array,
+			#'Companies that won multiple times in all bidding':companies_that_won_in_multiple_biddings,
+			#'Companies that won in multiple biddings with high value':companies_that_won_in_multiple_biddings_with_high_value,
+			#'Companies that won multiple times in the same bidding':companies_that_won_in_the_same_bidding,
+			#'Companies that won multiple times in the same bidding with high value':companies_that_won_in_the_same_bidding_with_high_value,
+			#'Companies that won multiple times in the same period':companies_that_won_in_same_period,
+			#'Companies that won multiple times considering company size':companies_that_won_multiple_times_considering_total_values
 		}
 		self.set_status(200)  # http 200 ok
 		self.write(response)
@@ -64,32 +110,6 @@ class CompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_winner_companies_as_list(self):
-		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
-		winner_companies = {}
-		while (yield cursor.fetch_next):
-
-			element = cursor.next_object()
-			companies = element['empresas']
-			licit = element['objeto']
-
-			for company in companies:
-				# Company has already won any process
-				if company['nome_empresa'] in winner_companies:
-					winner_companies[company['nome_empresa']]['number_of_wins'] += 1
-					winner_companies[company['nome_empresa']]['total_value'] += CompaniesHandler.convert_one_value(company['valor_global'])
-					winner_companies[company['nome_empresa']]['wonBiddings'].append(licit)
-				else:
-					winner_companies[company['nome_empresa']] = {"number_of_wins":1,"total_value":CompaniesHandler.convert_one_value(company['valor_global']),"wonBiddings":[licit]}
-		
-		winner_companies_array = []
-		for key in winner_companies:
-			winner_companies_array.append({"nome_empresa":key,"number_of_wins":winner_companies[key]['number_of_wins'],"total_value":winner_companies[key]['total_value'],"wonBiddings":winner_companies[key]['wonBiddings']})
-
-
-		return winner_companies_array
-
-	@gen.coroutine
 	def get_company_winning_in_all_biddings(self):
 		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 		for key,value in list(winner_companies.items() ):
@@ -101,6 +121,7 @@ class CompaniesHandler(CorsHandler):
 	def get_company_winning_in_all_biddings_above_value_threshold(self):
 		winner_companies = yield CompaniesHandler.get_winner_companies(self)
 		for key,value in list(winner_companies.items() ):
+
 			if value['number_of_wins'] <= ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings or CompaniesHandler.convert_one_value(value['total_value']) <= ConfigHandler.maximum_total_value_allowed:
 				del winner_companies[key]
 		return winner_companies

@@ -60,7 +60,7 @@ class SuspectedMaterialsHandler(CorsHandler):
 		count = yield self.application.mongodb.already_searched_products.find({"material":product_name}).count()
 		if product_name != None and count <= 0:#"Pé Conico Cromado 15cm":
 
-			InitScrapy.get_data(product_name[:40])
+			InitScrapy.get_data(product_name[:20])
 
 			# Listas de resultados e de preços:
 			results = []
