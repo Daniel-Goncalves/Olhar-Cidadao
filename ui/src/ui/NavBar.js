@@ -17,40 +17,28 @@ const NavBar = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
-          {pathName ? (
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-ite">
-                <a className="nav-link js-scroll-trigger text-white" href="#resume">Resumo</a>
-              </li>
-              <li className="nav-ite">
-                <a className="nav-link js-scroll-trigger text-white" href="#licitacoes">Licitações</a>
-              </li>
-              <li className="nav-ite">
-                <a className="nav-link js-scroll-trigger text-white" href="#comparation">Comparações</a>
-              </li>
-              <li className="nav-ite">
-                <Link to='/api' className="nav-link js-scroll-trigger text-white">API</Link>
-              </li>
-              <li className="nav-ite">
-                <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#contact">Contato</a>
-              </li>
-            </ul>
-          ) : (
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-ite">
-                  <Link to='/api' className="nav-link js-scroll-trigger text-white">API</Link>
-                </li>
-                <li className="nav-ite">
-                  <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#contact">Contato</a>
-                </li>
-              </ul>
-            )}
+
+          <ul className="navbar-nav ml-auto">
+            {pathName ? (<li className="nav-ite">
+              <a className="nav-link js-scroll-trigger text-white" href="#resume">Resumo</a>
+            </li>) : (null)}
+            {pathName ? (<li className="nav-ite">
+              <a className="nav-link js-scroll-trigger text-white" href="#licitacoes">Licitações</a>
+            </li>) : (null)}
+            {pathName ? (<li className="nav-ite">
+              <a className="nav-link js-scroll-trigger text-white" href="#comparation">Comparações</a>
+            </li>) : (null)}
+            <li className="nav-ite">
+              <Link to='/api' className="nav-link js-scroll-trigger text-white">API</Link>
+            </li>
+            <li className="nav-ite">
+              <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#contact">Contato</a>
+            </li>
+          </ul>
+
 
         </div>
       </div>
