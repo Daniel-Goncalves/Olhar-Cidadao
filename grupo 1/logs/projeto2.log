@@ -13,3 +13,74 @@ DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 GET /get_winner_companies (::1) 774.15ms
 DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 GET /get_winner_companies (::1) 164.30ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /get_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /get_suspected_materials (::1) 1.28ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /get_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /get_suspected_materials (::1) 1.77ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /post_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /post_suspected_materials (::1) 1.25ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /post_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /post_suspected_materials (::1) 1.85ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /get_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /get_suspected_materials (::1) 1.65ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /get_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /get_suspected_materials (::1) 1.38ms
+DEBUG:root:Started application on port 9000
+WARNING:tornado.general:400 POST /get_suspected_materials (::1): Missing argument numero_processo
+WARNING:tornado.access:400 POST /get_suspected_materials (::1) 2.37ms
+DEBUG:root:Started application on port 9000
+ERROR:tornado.application:Uncaught exception POST /get_suspected_materials (::1)
+HTTPServerRequest(protocol='http', host='localhost:9000', method='POST', uri='/get_suspected_materials', version='HTTP/1.1', remote_ip='::1', headers={'Content-Length': '41', 'Authorization': 'Bearer generate_password', 'Content-Type': 'application/json', 'Host': 'localhost:9000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1469, in _execute
+    result = yield result
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1021, in run
+    yielded = self.gen.throw(*exc_info)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/MaterialsSuspectedHandler.py", line 52, in post
+    materials = yield MaterialsSuspectedHandler.get_materials(cursor)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1015, in run
+    value = future.result()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/concurrent.py", line 237, in result
+    raise_exc_info(self._exc_info)
+  File "<string>", line 3, in raise_exc_info
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 1024, in run
+    yielded = self.gen.send(value)
+  File "/media/daniel/Dados/Daniel Documentos/Unb/5 Semestre/Projeto 2/Git/grupo 1/handlers/MaterialsSuspectedHandler.py", line 38, in get_materials
+    array.append(material)
+NameError: name 'array' is not defined
+ERROR:tornado.access:500 POST /get_suspected_materials (::1) 130.57ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 3.65ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 2.65ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 2.41ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 5.04ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 4.53ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 5.59ms
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 3.21ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 7.64ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 5.87ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 5.61ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 4.68ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 6.04ms
+INFO:tornado.access:200 POST /get_suspected_materials (::1) 3.16ms

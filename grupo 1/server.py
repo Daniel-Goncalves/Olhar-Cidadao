@@ -32,7 +32,6 @@ def create_web_server():
     handlers = [
         (r"/charge_unb_biddings", ChargeUnbBiddings),
         (r"/charge_grupo2", ChargeGroup2Handler),
-        (r"/get_licitacoes", LicitacoesHandler),
         (r"/get_values_differences", ValuesHandler),
         (r"/get_winner_companies", CompaniesHandler),
         (r"/get_empresas", EmpresasHandler),
