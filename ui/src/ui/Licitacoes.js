@@ -52,7 +52,6 @@ export default class Resume extends Component {
 
         fetch("http://localhost:9000/get_winner_companies")
             .then(result => {
-
                 return result.json();
             })
             .then(result => {
