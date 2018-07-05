@@ -26,6 +26,7 @@ var ultimos = number => {
         number - 5,
     ];
 }
+var cont = 0;
 var date = new Date().getMonth();
 var returnGraf = (labels, dados) => ({
     labels: labels,
@@ -63,8 +64,10 @@ export default class Resume extends Component {
             return result.json();
         })
             .then(result => {
+                cont = 0;
                 let licitacoes = result['Licitacoes dessa Instituicao'];
                 licitacoes.map(licitacao => {
+                    cont++;
                     let result = /\d{2}\/(\d{2})\/(\d{4}) - \d{2}\/\d{2}\/\d{4}/.exec(licitacao.empresas[0].vigencia);
 
                     let chave = result[2] + parseInt(result[1]);
@@ -95,6 +98,11 @@ export default class Resume extends Component {
             });
     }
     render() {
+        var str = window.location.href;
+        str = str.split("/");
+        var checkInt = false;
+        if (str[5] === 'UnB')
+            checkInt = true;
         return (
             <div>
                 <section id="resume">
@@ -112,20 +120,23 @@ export default class Resume extends Component {
                                     <p className="lead">Aqui você pode conferir o nivel confiabilidade da empresa baseado em nossos algoritmos.</p>
                                 </div>
                                 <div className="progress" style={{ marginTop: "60px" }}>
-                                    <div className="progress-bar" id="progress-bar1" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ width: "17%", }}></div>
+                                    {checkInt ? (
+                                        <div className="progress-bar" id="progress-bar1" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ width: "75%", backgroundColor: "#ffd900" }}></div>
+
+                                    ) : (
+                                            <div className="progress-bar" id="progress-bar1" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ width: "100%",  backgroundColor: "green" }}></div>
+
+                                        )}
+
                                 </div>
 
                                 <div style={{ paddingTop: "20px" }} className="row" id="div_info">
                                     <div className="col" id="info" style={{ borderRightStyle: "solid", borderWidth: "0.5px", borderColor: "grey" }}>
-                                        <h5>221</h5>
-                                        <h6>Licitações Concluidas</h6>
-                                    </div>
-                                    <div className="col" id="info" style={{ borderRightStyle: "solid", borderWidth: "0.5px", borderColor: "grey" }}>
-                                        <h5>10</h5>
-                                        <h6>Licitações Concluidas no ultimo ano</h6>
+                                        <h5>{cont}</h5>
+                                        <h6>Licitações Processadas</h6>
                                     </div>
                                     <div className="col" id="info">
-                                        <h5>2</h5>
+                                        <h5>{checkInt ? '2' : '0'}</h5>
                                         <h6>licitacoes suspeitas</h6>
                                     </div>
                                 </div>

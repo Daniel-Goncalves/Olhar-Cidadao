@@ -7,7 +7,7 @@ export default class Graphs extends Component {
     render() {
         return (
             <div style={{ paddingTop: "6%" }} >
-                <Resume {...this.props} />
+                <Resume />
                 <Licitacoes />
             </div>
         );
