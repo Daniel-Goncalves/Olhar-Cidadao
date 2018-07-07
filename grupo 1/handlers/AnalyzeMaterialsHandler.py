@@ -10,7 +10,7 @@ from handlers.ConfigHandler import ConfigHandler
 from handlers.CorsHandler import CorsHandler
 
 
-class SuspectedMaterialsHandler(CorsHandler):
+class AnalyzeMaterialsHandler(CorsHandler):
 
 	@gen.coroutine
 	def post(self):
@@ -24,7 +24,7 @@ class SuspectedMaterialsHandler(CorsHandler):
 		self.finish()
 
 		# Conexão com o banco de dados e início do processo de validação de dados:
-		SuspectedMaterialsHandler.import_from_db(self)
+		AnalyzeMaterialsHandler.import_from_db(self)
 		
 	@gen.coroutine
 	def import_from_db(self):
@@ -42,7 +42,7 @@ class SuspectedMaterialsHandler(CorsHandler):
 			i+=1
 			if material['unidade'] != 'Hora':
 				# Este produto será validado:
-				yield SuspectedMaterialsHandler.validate_product(self,material)
+				yield AnalyzeMaterialsHandler.validate_product(self,material)
 		cursor.close()
 
 	@gen.coroutine

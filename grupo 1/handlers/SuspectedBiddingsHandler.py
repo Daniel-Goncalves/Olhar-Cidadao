@@ -7,7 +7,7 @@ from handlers.ConfigHandler import ConfigHandler
 from handlers.CorsHandler import CorsHandler
 
 
-class SuspectsHandler(CorsHandler):
+class SuspectedBiddingsHandler(CorsHandler):
 
 
 	@gen.coroutine

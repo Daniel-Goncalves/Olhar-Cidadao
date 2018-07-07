@@ -11,17 +11,16 @@ import time
 from handlers.ConfigHandler import ConfigHandler
 from handlers.ChargeUnbBiddingsHandler import ChargeUnbBiddings
 from handlers.ValuesHandler import ValuesHandler
+from handlers.CompareCompaniesHandler import CompareCompaniesHandler
 from handlers.CompaniesHandler import CompaniesHandler
-from handlers.EmpresasHandler import EmpresasHandler
-from handlers.EmpresaHandler import EmpresaHandler
 from handlers.ProcessosHandler import ProcessosHandler
 from handlers.LicitacoesHandler import LicitacoesHandler
-from handlers.SuspectsHandler import SuspectsHandler
+from handlers.SuspectedBiddingsHandler import SuspectedBiddingsHandler
 from handlers.ChargeGroup2Handler import ChargeGroup2Handler
 from handlers.InstituicoesHandler import InstituicoesHandler
-from handlers.SuspectedMaterialsHandler import SuspectedMaterialsHandler
+from handlers.AnalyzeMaterialsHandler import AnalyzeMaterialsHandler
 from handlers.MaterialsSuspectedHandler import MaterialsSuspectedHandler
-from handlers.InstituicaoHandler import InstituicaoHandler
+from handlers.CurrentPeriodsHandler import CurrentPeriodsHandler
 
 def create_web_server():
 
@@ -33,16 +32,17 @@ def create_web_server():
         (r"/charge_unb_biddings", ChargeUnbBiddings),
         (r"/charge_grupo2", ChargeGroup2Handler),
         (r"/get_values_differences", ValuesHandler),
-        (r"/get_winner_companies", CompaniesHandler),
-        (r"/get_empresas", EmpresasHandler),
-        (r"/get_empresa", EmpresaHandler),
+        (r"/get_winner_companies", CompareCompaniesHandler),
+        (r"/get_empresas", CompaniesHandler),
+        (r"/get_empresa", CompaniesHandler),
         (r"/get_processos", ProcessosHandler),
         (r"/get_licitacoes", LicitacoesHandler),
         (r"/get_instituicao", InstituicoesHandler),
-        (r"/get_suspects", SuspectsHandler),
+        (r"/get_instituicoes",InstituicoesHandler),
+        (r"/get_suspects", SuspectedBiddingsHandler),
 		(r"/get_suspected_materials", MaterialsSuspectedHandler),
-        (r"/search_suspected_materials",SuspectedMaterialsHandler),
-        (r"/get_instituicoes",InstituicaoHandler)
+        (r"/search_suspected_materials",AnalyzeMaterialsHandler),
+        (r"/get_current_periods",CurrentPeriodsHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})
     ]
