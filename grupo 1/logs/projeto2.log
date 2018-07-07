@@ -13,3 +13,7 @@ DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 POST /get_current_periods (::1) 11.67ms
 DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 POST /get_current_periods (::1) 4.17ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_current_periods (::1) 7.31ms
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 POST /get_current_periods (::1) 7.54ms

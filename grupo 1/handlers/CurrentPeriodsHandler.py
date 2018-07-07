@@ -7,6 +7,7 @@ from datetime import datetime
 
 from handlers.ConfigHandler import ConfigHandler
 from handlers.CorsHandler import CorsHandler
+from handlers.CompareCompaniesHandler import CompareCompaniesHandler
 
 
 class CurrentPeriodsHandler(CorsHandler):
@@ -29,18 +30,21 @@ class CurrentPeriodsHandler(CorsHandler):
 				start = vigencia.split("-")[0][:-1].split("/")
 				start_datetime = str(datetime(int(start[2]), int(start[1]), int(start[0]) ) )
 				year_month = start_datetime[:7]
+
+				value = CompareCompaniesHandler.convert_one_value(empresa['valor_global'])
 				if year_month in dates_dict:
-					dates_dict[year_month] += 1
+					dates_dict[year_month]['wins'] += 1
+					dates_dict[year_month]['value'] += value
 				else:
-					dates_dict[year_month] = 1
+					dates_dict[year_month] = {"wins":1,"value":value}
 
 		dates_dict = CurrentPeriodsHandler.fulfill_months(dates_dict)
-
 		array = []
 		for date in sorted(dates_dict, reverse=True):
 			dict = {}
 			dict["date"] = date
-			dict["wins"] = dates_dict[date]
+			dict["wins"] = dates_dict[date]['wins']
+			dict["value"] = dates_dict[date]['value']
 			array.append(dict)
 
 		self.set_status(200)  # http 200 ok
@@ -73,7 +77,7 @@ class CurrentPeriodsHandler(CorsHandler):
 			else:
 				year_month = str(current_year) + "-0"+str(current_month)
 			if not year_month in dates_dict:
-				dates_dict[year_month] = 0
+				dates_dict[year_month] = {"wins":0,"value":0}
 
 			current_month += 1
 			if(current_month == 13):
@@ -81,4 +85,3 @@ class CurrentPeriodsHandler(CorsHandler):
 				current_year += 1
 
 		return dates_dict
-		

@@ -17,9 +17,11 @@ python-systemd==231
 pytz==2018.4
 PyYAML==3.12
 requests==2.9.1
+Scrapy==1.5.0
 six==1.10.0
 ssh-import-id==5.5
 tornado==5.0.2
+tornado-cors==0.6.0
 ufw==0.35
 unattended-upgrades==0.1
 urllib3==1.13.1
