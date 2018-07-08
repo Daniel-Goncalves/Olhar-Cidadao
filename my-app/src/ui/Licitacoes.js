@@ -16,7 +16,7 @@ export default class Resume extends Component {
     componentDidMount() {
         let array = [];
         let aux = [];
-        fetch("http://localhost:9000/get_suspected_materials")
+        fetch("http://172.16.20.20/get_suspected_materials")
             .then(result => {
                 return result.json();
             })
@@ -50,7 +50,7 @@ export default class Resume extends Component {
             });
 
 
-        fetch("http://localhost:9000/get_winner_companies")
+        fetch("http://172.16.20.20/get_winner_companies")
             .then(result => {
                 return result.json();
             })
@@ -59,7 +59,7 @@ export default class Resume extends Component {
             });
 
         let cont = 0;
-        fetch('http://localhost:9000/get_instituicao', {
+        fetch('http://172.16.20.20/get_instituicao', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

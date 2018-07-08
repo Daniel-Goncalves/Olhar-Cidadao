@@ -51,7 +51,7 @@ export default class Resume extends Component {
         };
     }
     componentDidMount() {
-        fetch('http://localhost:9000/get_instituicao', {
+        fetch('http://172.16.20.20/get_instituicao', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -7,10 +7,11 @@ export default class SearchHome extends Component {
         super();
         this.state = {
             id: '',
-            instituicoes: false,    
+            instituicoes: false, 
         };
-        fetch("http://localhost:9000/get_instituicoes")
+        fetch("http://172.16.20.20/get_instituicoes")
             .then(result=> {
+		console.log(result)
                 //console.log(result.json())
                 return result.json();
             })

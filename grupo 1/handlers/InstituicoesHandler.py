@@ -12,6 +12,7 @@ class InstituicoesHandler(CorsHandler):
 
 	@gen.coroutine
 	def get(self):
+		print("Request received")
 		cursor =  yield self.application.mongodb.licitacoes.distinct("instituicao")
 
 		response = {"instituicoes":cursor}

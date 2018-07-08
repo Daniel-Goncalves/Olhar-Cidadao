@@ -40,7 +40,7 @@ def create_web_server():
         (r"/get_instituicao", InstituicoesHandler),
         (r"/get_instituicoes",InstituicoesHandler),
         (r"/get_suspects", SuspectedBiddingsHandler),
-		(r"/get_suspected_materials", MaterialsSuspectedHandler),
+	(r"/get_suspected_materials", MaterialsSuspectedHandler),
         (r"/search_suspected_materials",AnalyzeMaterialsHandler),
         (r"/get_current_periods",CurrentPeriodsHandler)
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
@@ -58,7 +58,7 @@ def __configure_logging():
 if __name__ == '__main__':
 
     # Le a porta a ser usada a partir da configuracao lida
-    http_listen_port = 9000
+    http_listen_port = 8080
 
     web_app = create_web_server()
     ioloop = tornado.ioloop.IOLoop.instance()
