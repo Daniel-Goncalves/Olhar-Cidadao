@@ -5,9 +5,9 @@ import os
 class ConfigHandler:
 
 	# Le arquivo de configuracao
-	config_file_stream = open(os.path.join(sys.path[0], "config.yaml"), "r")
+	config_file_stream = open(os.path.join(sys.path[0], "config.yaml"), "r",encoding='utf-8')
 	config = yaml.load(config_file_stream)
-	
+
 
 	#mongodb_user = config["database"]["mongodb"]["user"]
 	#mongodb_password = config["database"]["mongodb"]["password"]

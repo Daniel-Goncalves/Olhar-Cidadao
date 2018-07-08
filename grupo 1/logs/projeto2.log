@@ -17,3 +17,8 @@ DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 POST /get_current_periods (::1) 7.31ms
 DEBUG:root:Started application on port 9000
 INFO:tornado.access:200 POST /get_current_periods (::1) 7.54ms
+DEBUG:root:Started application on port 9000
+DEBUG:root:Started application on port 9000
+INFO:tornado.access:200 GET /get_winner_companies (127.0.0.1) 161.42ms
+WARNING:tornado.access:404 GET / (127.0.0.1) 0.67ms
+WARNING:tornado.access:404 GET /favicon.ico (127.0.0.1) 0.60ms
