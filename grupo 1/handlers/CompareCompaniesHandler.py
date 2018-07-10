@@ -14,7 +14,7 @@ class CompareCompaniesHandler(CorsHandler):
 
 
 	@gen.coroutine
-	def get(self):
+	def post(self):
 
 		# Suport for user type the trigger parameters...function would have to be changed to post
 		# If there is no post with the parameters, the ones in ConfigHandler will be used
@@ -42,17 +42,21 @@ class CompareCompaniesHandler(CorsHandler):
 			maximum_number_of_wins_same_bidding = double(post_data['maximum_number_of_wins_same_bidding'])
 		else:
 			maximum_number_of_wins_same_bidding = ConfigHandler.maximum_number_of_wins_same_bidding
-			
+		
+		if "specific_instituition" in post_data:
+			specific_instituition = post_data['specific_instituition']
+		else:
+			specific_instituition = None
 
 		#winner_companies = yield CompareCompaniesHandler.get_winner_companies_as_list(self)
-		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self)
-		companies_that_won_in_multiple_biddings = yield CompareCompaniesHandler.get_company_winning_in_all_biddings(self,maximum_number_of_wins_for_a_company_in_all_biddings)
-		companies_that_won_in_multiple_biddings_with_high_value = yield CompareCompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self,maximum_number_of_wins_for_a_company_in_all_biddings,maximum_total_value_allowed)
-		companies_that_won_in_the_same_bidding = yield CompareCompaniesHandler.get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding)
-		companies_that_won_in_the_same_bidding_with_high_value = yield CompareCompaniesHandler.get_company_winning_in_same_bidding_above_value_threshold(self,maximum_number_of_wins_same_bidding,maximum_total_value_allowed)
-		companies_vigent_ranges = yield CompareCompaniesHandler.get_companies_vigent_ranges(self)
-		companies_that_won_in_same_period = yield CompareCompaniesHandler.company_winning_more_than_one_bidding_in_the_same_period(self)
-		companies_that_won_multiple_times_considering_total_values = yield CompareCompaniesHandler.get_company_winning_considering_company_size(self,maximum_value_allowed_for_two_wins,maximum_value_allowed_for_three_wins)
+		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self,specific_instituition)
+		companies_that_won_in_multiple_biddings = yield CompareCompaniesHandler.get_company_winning_in_all_biddings(self,maximum_number_of_wins_for_a_company_in_all_biddings,specific_instituition)
+		companies_that_won_in_multiple_biddings_with_high_value = yield CompareCompaniesHandler.get_company_winning_in_all_biddings_above_value_threshold(self,maximum_number_of_wins_for_a_company_in_all_biddings,maximum_total_value_allowed,specific_instituition)
+		companies_that_won_in_the_same_bidding = yield CompareCompaniesHandler.get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding,specific_instituition)
+		companies_that_won_in_the_same_bidding_with_high_value = yield CompareCompaniesHandler.get_company_winning_in_same_bidding_above_value_threshold(self,maximum_number_of_wins_same_bidding,maximum_total_value_allowed,specific_instituition)
+		companies_vigent_ranges = yield CompareCompaniesHandler.get_companies_vigent_ranges(self,specific_instituition)
+		companies_that_won_in_same_period = yield CompareCompaniesHandler.company_winning_more_than_one_bidding_in_the_same_period(self,specific_instituition)
+		companies_that_won_multiple_times_considering_total_values = yield CompareCompaniesHandler.get_company_winning_considering_company_size(self,maximum_value_allowed_for_two_wins,maximum_value_allowed_for_three_wins,specific_instituition)
 
 		winner_companies = CompareCompaniesHandler.convert_format(winner_companies,companies_that_won_in_multiple_biddings,companies_that_won_in_multiple_biddings_with_high_value,companies_that_won_in_the_same_bidding,companies_that_won_in_the_same_bidding_with_high_value,companies_that_won_in_same_period,companies_that_won_multiple_times_considering_total_values)
 
@@ -79,8 +83,11 @@ class CompareCompaniesHandler(CorsHandler):
 		return
 
 	@gen.coroutine
-	def get_winner_companies(self):
-		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+	def get_winner_companies(self,specific_instituition):
+		if not specific_instituition:
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+		else:
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA","instituicao":specific_instituition})
 		winner_companies = {}
 		while (yield cursor.fetch_next):
 
@@ -100,16 +107,17 @@ class CompareCompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_all_biddings(self,maximum_number_of_wins_for_a_company_in_all_biddings):
-		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self)
+	def get_company_winning_in_all_biddings(self,maximum_number_of_wins_for_a_company_in_all_biddings,specific_instituition):
+		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self,specific_instituition)
+
 		for key,value in list(winner_companies.items() ):
 			if value['number_of_wins'] <= maximum_number_of_wins_for_a_company_in_all_biddings:
 				del winner_companies[key]
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_all_biddings_above_value_threshold(self,maximum_number_of_wins_for_a_company_in_all_biddings,maximum_total_value_allowed):
-		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self)
+	def get_company_winning_in_all_biddings_above_value_threshold(self,maximum_number_of_wins_for_a_company_in_all_biddings,maximum_total_value_allowed,specific_instituition):
+		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self,specific_instituition)
 		for key,value in list(winner_companies.items() ):
 
 			if value['number_of_wins'] <= maximum_number_of_wins_for_a_company_in_all_biddings or CompareCompaniesHandler.convert_one_value(value['total_value']) <= maximum_total_value_allowed:
@@ -117,8 +125,8 @@ class CompareCompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_considering_company_size(self,maximum_value_allowed_for_two_wins,maximum_value_allowed_for_three_wins):
-		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self)
+	def get_company_winning_considering_company_size(self,maximum_value_allowed_for_two_wins,maximum_value_allowed_for_three_wins,specific_instituition):
+		winner_companies = yield CompareCompaniesHandler.get_winner_companies(self,specific_instituition)
 
 		#winner_companies['Ferragens Lider Comercio e Serviços EIRELI - EPP']['number_of_wins'] = 2
 
@@ -134,9 +142,12 @@ class CompareCompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding):
+	def get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding,specific_instituition):
 
-		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+		if not specific_instituition:
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+		else:
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA","instituicao":specific_instituition})
 		winner_companies = []
 		while (yield cursor.fetch_next):
 			element = cursor.next_object()
@@ -178,8 +189,8 @@ class CompareCompaniesHandler(CorsHandler):
 		return converted_value
 
 	@gen.coroutine
-	def get_company_winning_in_same_bidding_above_value_threshold(self,maximum_number_of_wins_same_bidding,maximum_total_value_allowed):
-		winner_companies = yield CompareCompaniesHandler.get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding)
+	def get_company_winning_in_same_bidding_above_value_threshold(self,maximum_number_of_wins_same_bidding,maximum_total_value_allowed,specific_instituition):
+		winner_companies = yield CompareCompaniesHandler.get_company_winning_in_same_bidding(self,maximum_number_of_wins_same_bidding,specific_instituition)
 
 		for element in winner_companies:
 			for key,value in list(element['multiple_win_companies'].items() ):
@@ -194,9 +205,12 @@ class CompareCompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_companies_vigent_ranges(self):
+	def get_companies_vigent_ranges(self.specific_instituition):
 
-		cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+		if not specific_instituition:
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
+		else
+			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA","specific_instituition":specific_instituition})
 		dateranges = {}
 		Range = namedtuple('Range', ['start', 'end'])
 		while (yield cursor.fetch_next):
@@ -223,8 +237,8 @@ class CompareCompaniesHandler(CorsHandler):
 		return dateranges
 
 	@gen.coroutine
-	def company_winning_more_than_one_bidding_in_the_same_period(self):
-		date_ranges = yield CompareCompaniesHandler.get_companies_vigent_ranges(self)
+	def company_winning_more_than_one_bidding_in_the_same_period(self,specific_instituition):
+		date_ranges = yield CompareCompaniesHandler.get_companies_vigent_ranges(self,specific_instituition)
 		# At this point i have the dateranges for each company
 		# Now it's necessary to check if any date overlaps
 
