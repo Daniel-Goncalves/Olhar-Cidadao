@@ -16,12 +16,11 @@ export default class Resume extends Component {
     componentDidMount() {
         let array = [];
         let aux = [];
-        fetch("http://localhost:9000/get_suspected_materials")
+        fetch("http://localhost:8080/get_suspected_materials")
             .then(result => {
                 return result.json();
             })
             .then(result => {
-                console.log(result);
                 let resultado = result['Materiais Suspeitos'];
                 resultado.map(material => {
                     let control = 0;
@@ -46,11 +45,19 @@ export default class Resume extends Component {
 
                 }
                 this.setState({ materiais_suspects: temp });
-                console.log(temp);
             });
 
 
-        fetch("http://localhost:9000/get_winner_companies")
+        fetch("http://localhost:8080/get_winner_companies", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                instituicao: this.state.instituicao
+            })
+        })
             .then(result => {
                 return result.json();
             })
@@ -59,7 +66,7 @@ export default class Resume extends Component {
             });
 
         let cont = 0;
-        fetch('http://localhost:9000/get_instituicao', {
+        fetch('http://localhost:8080/get_instituicao', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -77,12 +84,11 @@ export default class Resume extends Component {
                     array[cont] = licitacao.numero_processo;
                     cont++;
                 })
-                console.log(licitacoes);
                 this.setState({
                     processos: array,
                     licitacoes: licitacoes
                 })
-                let aux = this.state.licitacoes;
+                let aux = licitacoes;
                 let temp = aux[0].fiscal;
                 let element = document.getElementById(temp.replace(/ /g, ''));
                 element.classList.add("active");
@@ -108,7 +114,7 @@ export default class Resume extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div style={{ textAlign: "center", width: "100%", padding: "20px" }}>
+                    <div style={{ textAlign: "center", width: "100%" }}>
                         <div className="dropdown">
                             <button className="btn btn-secondary dropdown-toggle" style={{ width: '250px' }} type="button" id="botao_lic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha sua Licitação!</button>
                             <div className="dropdown-menu" id='div_lics' aria-labelledby="dropdownMenuButton">
@@ -152,7 +158,6 @@ export default class Resume extends Component {
                                     <div className="collapse" id={"COMP" + licitacao.numero_processo.replace(/ /g, '').replace('/', '').replace(',', '').replace('.', '').replace('-', '')}>
                                         {(() => {
                                             let ok = comparacoes[licitacao.numero_processo.replace(/ /g, '').replace('/', '').replace(',', '').replace('.', '').replace('-', '')];
-                                            console.log(ok);
                                             if (ok !== undefined) {
                                                 return <div className="card card-body marginBottom">
                                                     <div className="accordion">

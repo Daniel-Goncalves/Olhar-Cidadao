@@ -205,11 +205,11 @@ class CompareCompaniesHandler(CorsHandler):
 		return winner_companies
 
 	@gen.coroutine
-	def get_companies_vigent_ranges(self.specific_instituition):
+	def get_companies_vigent_ranges(self,specific_instituition):
 
 		if not specific_instituition:
 			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA"})
-		else
+		else:
 			cursor = self.application.mongodb.licitacoes.find({"classificacao":"ATAS COM VIGÊNCIA EXPIRADA","specific_instituition":specific_instituition})
 		dateranges = {}
 		Range = namedtuple('Range', ['start', 'end'])
