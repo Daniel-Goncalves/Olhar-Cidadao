@@ -23,23 +23,23 @@ class CompareCompaniesHandler(CorsHandler):
 		else:
 			post_data = {}
 		if "maximum_number_of_wins_for_a_company_in_all_biddings" in post_data:
-			maximum_number_of_wins_for_a_company_in_all_biddings = double(post_data['maximum_number_of_wins_for_a_company_in_all_biddings'])
+			maximum_number_of_wins_for_a_company_in_all_biddings = float(post_data['maximum_number_of_wins_for_a_company_in_all_biddings'])
 		else:
 			maximum_number_of_wins_for_a_company_in_all_biddings = ConfigHandler.maximum_number_of_wins_for_a_company_in_all_biddings
 		if "maximum_total_value_allowed" in post_data:
-			maximum_total_value_allowed = double(post_data['maximum_total_value_allowed'])
+			maximum_total_value_allowed = float(post_data['maximum_total_value_allowed'])
 		else:
 			maximum_total_value_allowed = ConfigHandler.maximum_total_value_allowed
 		if "maximum_value_allowed_for_two_wins" in post_data:
-			maximum_value_allowed_for_two_wins = double(post_data['maximum_value_allowed_for_two_wins'])
+			maximum_value_allowed_for_two_wins = float(post_data['maximum_value_allowed_for_two_wins'])
 		else:
 			maximum_value_allowed_for_two_wins = ConfigHandler.maximum_value_allowed_for_two_wins
 		if "maximum_value_allowed_for_three_wins" in post_data:
-			maximum_value_allowed_for_three_wins = double(post_data['maximum_value_allowed_for_three_wins'])
+			maximum_value_allowed_for_three_wins = float(post_data['maximum_value_allowed_for_three_wins'])
 		else:
 			maximum_value_allowed_for_three_wins = ConfigHandler.maximum_value_allowed_for_three_wins
 		if "maximum_number_of_wins_same_bidding" in post_data:
-			maximum_number_of_wins_same_bidding = double(post_data['maximum_number_of_wins_same_bidding'])
+			maximum_number_of_wins_same_bidding = float(post_data['maximum_number_of_wins_same_bidding'])
 		else:
 			maximum_number_of_wins_same_bidding = ConfigHandler.maximum_number_of_wins_same_bidding
 		
