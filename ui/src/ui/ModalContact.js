@@ -12,7 +12,9 @@ const ModalContact = (props) => {
             </button>
           </div>
           <div className="modal-body">
-            ...
+            <b>Professor:</b>flavioelias@unb.br <br />
+            <b>Gerente de Projeto:</b> lcsvncs429@gmail.com <br />
+            <b>GitHub:</b> https://github.com/Daniel-Goncalves/Projeto_Transversal2 <br />
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-dismiss="modal">Fechar</button>

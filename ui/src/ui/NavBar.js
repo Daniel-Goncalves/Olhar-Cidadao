@@ -19,7 +19,7 @@ const NavBar = (props) => {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav ml-auto">
             <li className="nav-ite">
-              <a className="nav-link js-scroll-trigger text-white" href="localhost:80">API</a>
+              <a className="nav-link js-scroll-trigger text-white" href="http://172.16.20.20">API</a>
             </li>
             <li className="nav-ite">
               <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>

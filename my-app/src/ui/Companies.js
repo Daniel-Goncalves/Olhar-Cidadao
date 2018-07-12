@@ -48,7 +48,7 @@ export default class Companies extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/get_winner_companies', {
+        fetch('http://172.16.20.20:8080/get_winner_companies', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
