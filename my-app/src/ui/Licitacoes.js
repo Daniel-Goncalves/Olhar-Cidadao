@@ -16,7 +16,7 @@ export default class Resume extends Component {
     componentDidMount() {
         let array = [];
         let aux = [];
-        fetch("http://172.16.20.20:8080/get_suspected_materials")
+        fetch("http://35.198.59.223/olhar_cidadao/get_suspected_materials")
             .then(result => {
                 return result.json();
             })
@@ -48,7 +48,7 @@ export default class Resume extends Component {
             });
 
 
-        fetch("http://172.16.20.20:8080/get_winner_companies", {
+        fetch("http://35.198.59.223/olhar_cidadao/get_winner_companies", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +66,7 @@ export default class Resume extends Component {
             });
 
         let cont = 0;
-        fetch('http://172.16.20.20:8080/get_instituicao', {
+        fetch('http://35.198.59.223/olhar_cidadao/get_instituicao', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -79,7 +79,11 @@ export default class Resume extends Component {
             return result.json();
         })
             .then(result => {
-                let licitacoes = result['Licitacoes dessa Instituicao'];
+
+        let licitacoes = result['Licitacoes dessa Instituicao'];
+		if(licitacoes.length == 0)
+			return
+
                 licitacoes.map(licitacao => {
                     array[cont] = licitacao.numero_processo;
                     cont++;

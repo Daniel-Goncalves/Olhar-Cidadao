@@ -26,14 +26,15 @@ export default class Resume extends Component {
         };
     }
     componentDidMount() {
-        fetch('http://172.16.20.20:8080/get_current_periods', {
-            method: 'POST',
+
+        fetch('http://35.198.59.223/olhar_cidadao/get_current_periods', {
+        	method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                instituicao: this.state.instituicao
+           	    'Accept': 'application/json',
+             	'Content-Type': 'application/json',
+           	},
+           	body: JSON.stringify({
+               	instituicao: this.state.instituicao
             })
         }).then(result => {
             return result.json();
@@ -82,7 +83,7 @@ export default class Resume extends Component {
                     labels,
                 });
             });
-        fetch('http://172.16.20.20:8080/get_instituicao', {
+        fetch('http://35.198.59.223/olhar_cidadao/get_instituicao', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -95,15 +96,16 @@ export default class Resume extends Component {
             return result.json();
         })
             .then(result => {
-                contador = 0;
+                
                 let licitacoes = result['Licitacoes dessa Instituicao'];
                 licitacoes.map(licitacao => {
                     contador++;
-                });
-
+                })
+                this.setState({})
             });
     }
     teste(aux) {
+
         let option = aux.target.value;
         let d = new Date();
         let n = d.getMonth();

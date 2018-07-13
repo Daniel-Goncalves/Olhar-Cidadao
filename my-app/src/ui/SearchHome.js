@@ -9,7 +9,7 @@ export default class SearchHome extends Component {
             id: '',
             instituicoes: false, 
         };
-        fetch("http://172.16.20.20:8080/get_instituicoes")
+        fetch("http://35.198.59.223/olhar_cidadao/get_instituicoes")
             .then(result=> {
 		console.log(result)
                 //console.log(result.json())
@@ -24,14 +24,31 @@ export default class SearchHome extends Component {
 
 
     _handleKeyPress = (e) => {
+        console.log("On handle Button")
         if (e.key === 'Enter' && this.state.id !== '') {
-            document.getElementById("buttonpress").click();
+            console.log("Inside")
+            document.getElementById("buttonpress").click()
         }
     }
     handle(str) {
-        this.setState({
-            id: str
-        })
+
+        //if(str instanceof Array && this.state.instituicoes.indexOf(str[0]) > -1){
+            this.setState({
+                id: str
+            })
+        //}
+    }
+
+    submit(str) {
+
+        if(this.state.id instanceof Array && this.state.instituicoes.indexOf(this.state.id[0]) > -1){
+            this.setState({
+                id: str
+            })
+        }
+        else {
+            alert("Selecione uma instituição presente na lista")
+        }
     }
     render() {
         return (
@@ -55,7 +72,7 @@ export default class SearchHome extends Component {
                                 maxVisible={2}
                             />
                         <div className="input-group-append">
-                            <Link to={`/graphs/${this.state.id}`} onClick={this.handle.bind(this)} id='buttonpress' className="btn btn-outline-secondary">Buscar</Link>
+                            <Link to={`/graphs/${this.state.id}`} onClick={this.submit.bind(this)} id='buttonpress' className="btn btn-outline-secondary">Buscar</Link>
                         </div>        
 
 

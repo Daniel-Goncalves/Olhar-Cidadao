@@ -48,7 +48,7 @@ export default class Companies extends Component {
     }
 
     componentDidMount() {
-        fetch('http://172.16.20.20:8080/get_winner_companies', {
+        fetch('http://35.198.59.223/olhar_cidadao/get_winner_companies', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -105,9 +105,9 @@ export default class Companies extends Component {
                             <div>
                                 Ordernar por
                                 <div style={{ marginLeft: '15px', marginRight: '20px', marginTop: '4px' }}>
-                                    <button value='1' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option1" autocomplete="off" checked>Vitórias</button>
-                                    <button value='2' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option2" autocomplete="off"> Valores </button>
-                                    <button value='3' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option3" autocomplete="off"> Empresas</button>
+                                    <button value='1' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option1" checked>Vitórias</button>
+                                    <button value='2' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option2" > Valores </button>
+                                    <button value='3' style={{ margin: '3px' }} className="btn btn-dark" onClick={this.tigger.bind(this)} type="radio" name="options" id="option3"> Empresas</button>
                                 </div>
                             </div>
                         </div>

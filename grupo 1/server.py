@@ -29,20 +29,20 @@ def create_web_server():
 
     # Roteamento para as diferentes URIs
     handlers = [
-        (r"/charge_unb_biddings", ChargeUnbBiddings),
-        (r"/charge_grupo2", ChargeGroup2Handler),
-        (r"/get_values_differences", ValuesHandler),
-        (r"/get_winner_companies", CompareCompaniesHandler),
-        (r"/get_empresas", CompaniesHandler),
-        (r"/get_empresa", CompaniesHandler),
-        (r"/get_processos", ProcessosHandler),
-        (r"/get_licitacoes", LicitacoesHandler),
-        (r"/get_instituicao", InstituicoesHandler),
-        (r"/get_instituicoes",InstituicoesHandler),
-        (r"/get_suspects", SuspectedBiddingsHandler),
-	(r"/get_suspected_materials", MaterialsSuspectedHandler),
-        (r"/search_suspected_materials",AnalyzeMaterialsHandler),
-        (r"/get_current_periods",CurrentPeriodsHandler)
+        (r"/olhar_cidadao/charge_unb_biddings", ChargeUnbBiddings),
+        (r"/olhar_cidadao/charge_grupo2", ChargeGroup2Handler),
+        (r"/olhar_cidadao/get_values_differences", ValuesHandler),
+        (r"/olhar_cidadao/get_winner_companies", CompareCompaniesHandler),
+        (r"/olhar_cidadao/get_empresas", CompaniesHandler),
+        (r"/olhar_cidadao/get_empresa", CompaniesHandler),
+        (r"/olhar_cidadao/get_processos", ProcessosHandler),
+        (r"/olhar_cidadao/get_licitacoes", LicitacoesHandler),
+        (r"/olhar_cidadao/get_instituicao", InstituicoesHandler),
+        (r"/olhar_cidadao/get_instituicoes",InstituicoesHandler),
+        (r"/olhar_cidadao/get_suspects", SuspectedBiddingsHandler),
+	    (r"/olhar_cidadao/get_suspected_materials", MaterialsSuspectedHandler),
+        (r"/olhar_cidadao/search_suspected_materials",AnalyzeMaterialsHandler),
+        (r"/olhar_cidadao/get_current_periods",CurrentPeriodsHandler),
         #(r"/(.*)", tornado.web.StaticFileHandler, {'path': static_path,
         #                                           "default_filename": "index.html"})
     ]

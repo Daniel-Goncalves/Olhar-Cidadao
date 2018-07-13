@@ -11,7 +11,7 @@ const NavBar = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
       <div className="container">
-        <Link to='/' className="navbar-brand js-scroll-trigger">Olhar Cidadão</Link>
+        <Link to='/' className='navbar-brand js-scroll-trigger'>Olhar Cidadão</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
           aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -19,7 +19,7 @@ const NavBar = (props) => {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav ml-auto">
             <li className="nav-ite">
-              <a className="nav-link js-scroll-trigger text-white" href="http://172.16.20.20">API</a>
+              <a className="nav-link js-scroll-trigger text-white" href='http://35.198.59.223/api.html'>API</a>
             </li>
             <li className="nav-ite">
               <a className="nav-link js-scroll-trigger text-white" href="#bout" data-toggle="modal" data-target="#about">Sobre</a>
